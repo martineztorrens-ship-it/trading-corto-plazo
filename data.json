@@ -1,0 +1,179 @@
+{
+  "weekRange": "8 – 13 Jun 2026",
+  "updated": "8 Jun 2026",
+  "objetivo": "+10% en máx. 7 días",
+  "picks": [
+    {
+      "ticker": "ORCL",
+      "company": "Oracle Corporation · NYSE",
+      "rank": 1,
+      "color": "#c0392b",
+      "buy": "$210–216",
+      "target": "$232–240",
+      "stop": "$199",
+      "upside": "+10% a +14%",
+      "upsidePct": 60,
+      "reason": "Reporta earnings el 10 de junio (miércoles) al cierre. Implied move de opciones: ±11.22%. Backlog de OCI cloud: $553B (+325% YoY). Cloud revenue +84% YoY. Analistas suben objetivos masivamente: Cantor $284, Scotiabank $290, UBS $285. 95% probabilidad implícita de beat según mercado de opciones. Pre-earnings run up ya en marcha (+40% en 3 meses). Vender antes o inmediatamente después del earnings.",
+      "rrRatio": "1 : 3",
+      "catalizador": "Earnings Jun 10 · Implied move ±11.22%",
+      "analistas": "Cantor $284 · Scotiabank $290 · UBS $285"
+    },
+    {
+      "ticker": "MRVL",
+      "company": "Marvell Technology · NASDAQ · 🆕 S&P 500",
+      "rank": 2,
+      "color": "#1a6b3c",
+      "buy": "$285–300",
+      "target": "$320–340",
+      "stop": "$272",
+      "upside": "+10% a +19%",
+      "upsidePct": 65,
+      "reason": "Nuevo catalizador: ingresa al S&P 500 el 22 de junio. Todos los fondos indexados y ETFs deben comprar obligatoriamente antes de esa fecha → miles de millones en compras programáticas. Hoy subió +13.5% con volumen masivo. Jensen Huang: \"next trillion-dollar company\". Lanzó Teralynx T100 (AI switch 3nm). Q1 revenue +28% YoY. Aprovechar la ventana de compra forzada institucional.",
+      "rrRatio": "1 : 3.5",
+      "catalizador": "Inclusión S&P 500 el 22 Jun · Compra forzada ETFs",
+      "analistas": "Stifel $321 · YTD +210% · Record revenue Q1 FY27"
+    }
+  ],
+  "calendar": [
+    {
+      "day": "LUN",
+      "date": 8,
+      "type": "compra",
+      "items": [
+        "<span class=\"pill pill-compra\">COMPRA</span>",
+        "<strong>ORCL</strong> $210–216",
+        "<strong>MRVL</strong> $285–300",
+        "<em>Hoy MRVL +13% — esperar pullback para entrar</em>"
+      ]
+    },
+    {
+      "day": "MAR",
+      "date": 9,
+      "type": "hold",
+      "items": [
+        "<span class=\"pill pill-hold\">MANTENER</span>",
+        "Segunda oportunidad de compra si no entraste.",
+        "<strong>ORCL</strong> en pre-earnings aceleración."
+      ]
+    },
+    {
+      "day": "MIE",
+      "date": 10,
+      "type": "earn",
+      "items": [
+        "<span class=\"pill pill-earn\">EARNINGS</span>",
+        "<strong>ORCL</strong> reporta 5PM EDT.",
+        "Vender ORCL al cierre o en after-hours si sube.",
+        "Mantener MRVL."
+      ]
+    },
+    {
+      "day": "JUE",
+      "date": 11,
+      "type": "alerta",
+      "items": [
+        "<span class=\"pill pill-alerta\">ALERTA</span>",
+        "Verificar reacción ORCL post-earnings.",
+        "Si MRVL supera $315 → evaluar venta parcial."
+      ]
+    },
+    {
+      "day": "VIE",
+      "date": 12,
+      "type": "venta",
+      "items": [
+        "<span class=\"pill pill-venta\">VENTA</span>",
+        "<strong>Cierre ORCL</strong> obligatorio hoy.",
+        "<strong>MRVL:</strong> si llegó al objetivo, vender. Si no, mantener hasta Jun 18."
+      ]
+    },
+    {
+      "day": "LUN",
+      "date": 15,
+      "type": "venta",
+      "items": [
+        "<span class=\"pill pill-venta\">SALIDA</span>",
+        "<strong>Límite MRVL</strong> — cerrar posición antes del 22 Jun para capturar prima de inclusión S&P 500."
+      ]
+    }
+  ],
+  "historial": [
+    {
+      "num": 1,
+      "semana": "04 Jun 2026",
+      "ticker": "AVGO",
+      "empresa": "Broadcom Inc.",
+      "tickerColor": "blue",
+      "entry": "$405–414",
+      "target": "$441–452",
+      "stop": "$395",
+      "upside": "+9–12%",
+      "upsideColor": "blue",
+      "buyDate": "4–5 Jun",
+      "sellDate": "10–11 Jun",
+      "status": "active",
+      "shares": 12,
+      "pnl": 104,
+      "pnlPct": 2.1,
+      "note": "⚠️ Salida ~$418 (est.) · Target $441 no alcanzado"
+    },
+    {
+      "num": 2,
+      "semana": "04 Jun 2026",
+      "ticker": "MRVL",
+      "empresa": "Marvell Technology",
+      "tickerColor": "green",
+      "entry": "$283–287",
+      "target": "$303–337",
+      "stop": "$270",
+      "upside": "+10–17%",
+      "upsideColor": "green",
+      "buyDate": "4–5 Jun",
+      "sellDate": "10–11 Jun",
+      "status": "loss",
+      "shares": 17,
+      "pnl": -263,
+      "pnlPct": -5.3,
+      "note": "Stop activado 5 Jun · Entrada $285 → $270"
+    },
+    {
+      "num": 3,
+      "semana": "08 Jun 2026",
+      "ticker": "ORCL",
+      "empresa": "Oracle Corporation",
+      "tickerColor": "red",
+      "entry": "$210–216",
+      "target": "$232–240",
+      "stop": "$199",
+      "upside": "+10–14%",
+      "upsideColor": "red",
+      "buyDate": "8–9 Jun",
+      "sellDate": "11–12 Jun",
+      "status": "active",
+      "shares": null,
+      "pnl": null,
+      "pnlPct": null,
+      "note": ""
+    },
+    {
+      "num": 4,
+      "semana": "08 Jun 2026",
+      "ticker": "MRVL",
+      "empresa": "Marvell · S&P 500 Trade",
+      "tickerColor": "green",
+      "entry": "$285–300",
+      "target": "$320–340",
+      "stop": "$272",
+      "upside": "+10–19%",
+      "upsideColor": "green",
+      "buyDate": "8–10 Jun",
+      "sellDate": "12–15 Jun",
+      "status": "active",
+      "shares": null,
+      "pnl": null,
+      "pnlPct": null,
+      "note": ""
+    }
+  ],
+  "investmentPerTrade": 5000
+}

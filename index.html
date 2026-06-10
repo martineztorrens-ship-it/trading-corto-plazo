@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Plan de Trading — Acciones a Corto Plazo</title>
+<link rel="stylesheet" href="style.css">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f3460">
+<link rel="icon" href="icon-192.png">
+
+<!-- iOS / Add to Home Screen -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Trading CP">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <h1>📈 PLAN DE TRADING SEMANAL</h1>
+    <p>Análisis técnico + fundamental · Objetivo: <span id="objetivo"></span></p>
+  </div>
+  <div class="header-right">
+    <div>Semana del <strong id="weekRange"></strong></div>
+    <div>Actualizado: <strong id="updated"></strong></div>
+    <div class="badge">⚡ CORTO PLAZO</div>
+  </div>
+</div>
+
+<div class="toolbar">
+  <button class="btn btn-secondary" onclick="window.print()">🖨️ Imprimir / PDF</button>
+  <button class="btn btn-secondary" id="exportBtn">⬇️ Exportar datos (JSON)</button>
+  <button class="btn btn-danger" id="resetBtn">↺ Restaurar datos originales</button>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" data-tab="plan">Plan Semanal</button>
+  <button class="tab-btn" data-tab="historial">Historial &amp; P&amp;L</button>
+</div>
+
+<!-- ===================== PLAN SEMANAL ===================== -->
+<div class="tab-content active" id="tab-plan">
+
+  <div class="cards-row" id="picksRow"></div>
+
+  <div class="section-title">📅 Calendario operativo</div>
+  <div class="calendar" id="calendarRow"></div>
+
+  <div class="rules-row" id="rulesRow"></div>
+
+  <div class="disclaimer">
+    <strong>⚠️ ADVERTENCIA:</strong> Este documento es exclusivamente informativo y no constituye asesoría de inversión personalizada. Las operaciones de corto plazo conllevan riesgo significativo de pérdida de capital. Nunca invertir más del 5–10% del portafolio en una sola operación especulativa. Siempre respetar el stop-loss. Consultar con un asesor financiero certificado antes de operar.
+  </div>
+</div>
+
+<!-- ===================== HISTORIAL ===================== -->
+<div class="tab-content" id="tab-historial">
+
+  <div class="header" style="margin-top:0;">
+    <div class="header-left">
+      <h1>📋 HISTORIAL DE RECOMENDACIONES</h1>
+      <p>Registro acumulativo · Se eliminan operaciones con fecha de salida vencida al llegar a 10</p>
+    </div>
+    <div class="header-right">
+      <div>Recomendaciones activas/abiertas: <strong id="activeCount"></strong></div>
+      <div class="badge">📂 REGISTRO VIVO</div>
+    </div>
+  </div>
+
+  <div class="form-box">
+    <h3>➕ Añadir nueva recomendación</h3>
+    <div class="form-grid">
+      <label>Semana <input type="text" id="f-semana" placeholder="08 Jun 2026"></label>
+      <label>Ticker <input type="text" id="f-ticker" placeholder="NVDA"></label>
+      <label>Empresa <input type="text" id="f-empresa" placeholder="NVIDIA Corp."></label>
+      <label>Color ticker
+        <select id="f-color">
+          <option value="blue">Azul</option>
+          <option value="green">Verde</option>
+          <option value="red">Rojo</option>
+          <option value="purple">Morado</option>
+        </select>
+      </label>
+      <label>Entrada <input type="text" id="f-entry" placeholder="$120–125"></label>
+      <label>Objetivo <input type="text" id="f-target" placeholder="$135–145"></label>
+      <label>Stop <input type="text" id="f-stop" placeholder="$112"></label>
+      <label>Upside <input type="text" id="f-upside" placeholder="+10–16%"></label>
+      <label>Color upside
+        <select id="f-upcolor">
+          <option value="blue">Azul</option>
+          <option value="green">Verde</option>
+          <option value="red">Rojo</option>
+          <option value="purple">Morado</option>
+        </select>
+      </label>
+      <label>Fecha compra <input type="text" id="f-buydate" placeholder="8–9 Jun"></label>
+      <label>Fecha venta <input type="text" id="f-selldate" placeholder="12–15 Jun"></label>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="addRowBtn">Añadir operación</button>
+    </div>
+  </div>
+
+  <table class="hist-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Semana</th>
+        <th>Ticker</th>
+        <th>Empresa</th>
+        <th>Entrada</th>
+        <th>Objetivo</th>
+        <th>Stop</th>
+        <th>Upside</th>
+        <th>Comprar</th>
+        <th>Vender</th>
+        <th>Estado</th>
+        <th class="col-pnl">P&amp;L (<span id="pnlInvBadge"></span>)</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="histBody"></tbody>
+  </table>
+
+  <div class="pnl-summary">
+    <div class="pnl-title">💰 RESUMEN P&amp;L · Inversión por operación: $<span id="pnlInvTitle"></span></div>
+    <div class="pnl-grid" id="pnlGrid"></div>
+  </div>
+
+  <div class="legend-row">
+    <div class="legend-box">
+      <div class="legend-title">ESTADOS</div>
+      <div class="legend-items">
+        <span class="status-badge status-active">⚡ ACTIVA</span> Dentro del período de operación &nbsp;·&nbsp;
+        <span class="status-badge status-win">✅ GANADA</span> Objetivo alcanzado &nbsp;·&nbsp;
+        <span class="status-badge status-loss">❌ STOP</span> Stop-loss activado &nbsp;·&nbsp;
+        <span class="status-badge status-expired">🕐 VENCIDA</span> Fecha expirada sin resultado claro
+      </div>
+    </div>
+  </div>
+
+  <div class="rule-box">
+    <strong>📌 REGLA DE LIMPIEZA AUTOMÁTICA:</strong> Al llegar a 10 recomendaciones, se eliminan todas las filas cuya fecha de <em>Vender</em> ya haya pasado. Solo permanecen las operaciones con fecha de salida futura o en curso. El contador se reinicia y se agregan las nuevas recomendaciones de la semana. Usa el botón "🧹 Limpiar vencidas" para aplicar la regla manualmente.
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-secondary" id="cleanupBtn">🧹 Limpiar vencidas (si hay 10)</button>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>
