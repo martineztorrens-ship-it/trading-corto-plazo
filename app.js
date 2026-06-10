@@ -413,6 +413,103 @@ function attachInstallListener() {
   });
 }
 
+/* ===================== PUBLICAR CAMBIOS (Cloudflare Worker) ===================== */
+const PUBLISH_URL_KEY = 'acciones_corto_plazo_publish_url';
+const PUBLISH_SECRET_KEY = 'acciones_corto_plazo_publish_secret';
+
+function attachPublishListener() {
+  const btn = document.getElementById('publishBtn');
+  const overlay = document.getElementById('publishOverlay');
+  const closeBtn = document.getElementById('publishCloseBtn');
+  const configBox = document.getElementById('publishConfigBox');
+  const urlInput = document.getElementById('publishUrl');
+  const secretInput = document.getElementById('publishSecret');
+  const saveBtn = document.getElementById('publishSaveBtn');
+  const statusBox = document.getElementById('publishStatus');
+  const publishNowBtn = document.getElementById('publishNowBtn');
+  const editConfigBtn = document.getElementById('publishEditConfigBtn');
+
+  const closeOverlay = () => overlay.classList.remove('active');
+  closeBtn.addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(); });
+
+  function hasConfig() {
+    return !!(localStorage.getItem(PUBLISH_URL_KEY) && localStorage.getItem(PUBLISH_SECRET_KEY));
+  }
+
+  function refreshView() {
+    statusBox.textContent = '';
+    if (hasConfig()) {
+      configBox.style.display = 'none';
+      publishNowBtn.style.display = '';
+      editConfigBtn.style.display = '';
+    } else {
+      configBox.style.display = '';
+      publishNowBtn.style.display = 'none';
+      editConfigBtn.style.display = 'none';
+      urlInput.value = localStorage.getItem(PUBLISH_URL_KEY) || '';
+      secretInput.value = '';
+    }
+  }
+
+  btn.addEventListener('click', () => {
+    refreshView();
+    overlay.classList.add('active');
+  });
+
+  saveBtn.addEventListener('click', () => {
+    const url = urlInput.value.trim();
+    const secret = secretInput.value.trim();
+    if (!url || !secret) {
+      statusBox.textContent = '⚠️ Introduce la URL y el código secreto.';
+      statusBox.style.color = 'var(--redbrand)';
+      return;
+    }
+    localStorage.setItem(PUBLISH_URL_KEY, url);
+    localStorage.setItem(PUBLISH_SECRET_KEY, secret);
+    refreshView();
+  });
+
+  editConfigBtn.addEventListener('click', () => {
+    configBox.style.display = '';
+    publishNowBtn.style.display = 'none';
+    editConfigBtn.style.display = 'none';
+    urlInput.value = localStorage.getItem(PUBLISH_URL_KEY) || '';
+    secretInput.value = localStorage.getItem(PUBLISH_SECRET_KEY) || '';
+  });
+
+  publishNowBtn.addEventListener('click', async () => {
+    const url = localStorage.getItem(PUBLISH_URL_KEY);
+    const secret = localStorage.getItem(PUBLISH_SECRET_KEY);
+    statusBox.textContent = 'Publicando...';
+    statusBox.style.color = '#888';
+    publishNowBtn.disabled = true;
+    try {
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Auth-Token': secret
+        },
+        body: JSON.stringify(DATA)
+      });
+      const result = await res.json();
+      if (res.ok && result.ok) {
+        statusBox.textContent = '✅ Publicado. La web se actualizará en 1-2 minutos.';
+        statusBox.style.color = 'var(--green)';
+      } else {
+        statusBox.textContent = `❌ Error: ${result.error || 'desconocido'}`;
+        statusBox.style.color = 'var(--redbrand)';
+      }
+    } catch (err) {
+      statusBox.textContent = `❌ Error de conexión: ${err.message}`;
+      statusBox.style.color = 'var(--redbrand)';
+    } finally {
+      publishNowBtn.disabled = false;
+    }
+  });
+}
+
 /* ===================== TABS ===================== */
 function attachTabListeners() {
   document.querySelectorAll('.tab-btn').forEach(btn => {
@@ -442,4 +539,5 @@ function renderAll() {
   attachToolbarListeners();
   attachTabListeners();
   attachInstallListener();
+  attachPublishListener();
 })();

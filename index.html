@@ -32,6 +32,7 @@
 
 <div class="toolbar">
   <button class="btn" id="installBtn">📲 Instalar app</button>
+  <button class="btn" id="publishBtn">🚀 Publicar cambios</button>
   <button class="btn btn-secondary" onclick="window.print()">🖨️ Imprimir / PDF</button>
   <button class="btn btn-secondary" id="exportBtn">⬇️ Exportar datos (JSON)</button>
   <button class="btn btn-danger" id="resetBtn">↺ Restaurar datos originales</button>
@@ -43,6 +44,26 @@
     <h2>📲 Instalar la app</h2>
     <div id="installInstructions"></div>
     <button class="btn" id="installCloseBtn2">Entendido</button>
+  </div>
+</div>
+
+<div class="install-overlay" id="publishOverlay">
+  <div class="install-modal">
+    <button class="install-close" id="publishCloseBtn">✕</button>
+    <h2>🚀 Publicar cambios</h2>
+    <div id="publishConfigBox">
+      <p>Configura una vez la conexión con tu publicador (Cloudflare Worker):</p>
+      <label style="display:block; font-size:11px; color:#888; text-transform:uppercase; margin-bottom:4px;">URL del Worker</label>
+      <input type="text" id="publishUrl" placeholder="https://tu-worker.tu-usuario.workers.dev" style="width:100%; padding:8px; font-size:12px; border:1px solid #ddd; border-radius:5px; margin-bottom:10px;">
+      <label style="display:block; font-size:11px; color:#888; text-transform:uppercase; margin-bottom:4px;">Código secreto</label>
+      <input type="password" id="publishSecret" placeholder="Tu código secreto" style="width:100%; padding:8px; font-size:12px; border:1px solid #ddd; border-radius:5px; margin-bottom:14px;">
+      <button class="btn" id="publishSaveBtn">Guardar</button>
+    </div>
+    <div id="publishStatus" style="margin-top:14px; font-size:13px;"></div>
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn" id="publishNowBtn">Publicar ahora</button>
+      <button class="btn btn-secondary" id="publishEditConfigBtn">Cambiar configuración</button>
+    </div>
   </div>
 </div>
 

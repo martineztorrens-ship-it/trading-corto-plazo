@@ -1,4 +1,4 @@
-const CACHE_NAME = 'trading-cp-v2';
+const CACHE_NAME = 'trading-cp-v3';
 const ASSETS = [
   './',
   './index.html',
