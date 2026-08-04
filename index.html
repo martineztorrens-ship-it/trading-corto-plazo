@@ -2,194 +2,843 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Plan de Trading — Acciones a Corto Plazo</title>
-<link rel="stylesheet" href="style.css">
-
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0f3460">
-<link rel="icon" href="icon-192.png">
-
-<!-- iOS / Add to Home Screen -->
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Trading CP">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACCIONES A CORTO PLAZO — Trading Dashboard</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --bg2: #111827;
+    --bg3: #1c2438;
+    --border: #2a3550;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --green: #10b981;
+    --red: #ef4444;
+    --yellow: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --gold: #fbbf24;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+  nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; align-items: center; justify-content: space-between; height: 60px; position: sticky; top: 0; z-index: 100; flex-wrap: wrap; gap: 8px; }
+  .nav-brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; color: var(--accent); letter-spacing: .5px; }
+  .nav-brand span { color: var(--text); font-weight: 400; }
+  .nav-tabs { display: flex; gap: 4px; }
+  .tab-btn { padding: 8px 20px; border-radius: 8px; border: 1px solid transparent; background: none; color: var(--muted); cursor: pointer; font-size: 14px; font-weight: 500; transition: all .2s; }
+  .tab-btn.active { background: var(--bg3); border-color: var(--accent); color: var(--accent); }
+  .tab-btn:hover:not(.active) { background: var(--bg3); color: var(--text); }
+  .nav-date { font-size: 13px; color: var(--muted); }
+  .page { display: none; padding: 32px; max-width: 1200px; margin: 0 auto; }
+  .page.active { display: block; }
+  .rec-header { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f2a1a 100%); border: 1px solid var(--accent2); border-radius: 16px; padding: 32px; margin-bottom: 28px; position: relative; overflow: hidden; }
+  .rec-header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(0,212,255,0.08) 0%, transparent 70%); }
+  .rec-ticker { font-size: 48px; font-weight: 800; color: #fff; letter-spacing: -1px; line-height: 1; }
+  .rec-company { font-size: 18px; color: var(--muted); margin-top: 4px; }
+  .rec-badges { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+  .badge { padding: 4px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; }
+  .badge-buy { background: rgba(16,185,129,.15); border: 1px solid var(--green); color: var(--green); }
+  .badge-week { background: rgba(0,212,255,.1); border: 1px solid var(--accent); color: var(--accent); }
+  .badge-hot { background: rgba(251,191,36,.1); border: 1px solid var(--gold); color: var(--gold); }
+  .rec-meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; margin-top: 28px; }
+  .meta-item label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .meta-item .value { font-size: 22px; font-weight: 700; margin-top: 4px; }
+  .meta-item .value.green { color: var(--green); }
+  .meta-item .value.red { color: var(--red); }
+  .meta-item .value.accent { color: var(--accent); }
+  .meta-item .value.gold { color: var(--gold); }
+  .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .price-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .price-card .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .price-card .amount { font-size: 28px; font-weight: 700; }
+  .price-card .sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .price-card.entry { border-color: var(--accent); }
+  .price-card.target { border-color: var(--green); }
+  .price-card.stop { border-color: var(--red); }
+  .price-card.upside-card { border-color: var(--gold); }
+  .section { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; }
+  .section h3 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+  .section h3::before { content: ''; width: 3px; height: 16px; background: var(--accent); border-radius: 2px; display: inline-block; }
+  .hist-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .hist-table th { background: var(--bg3); color: var(--muted); text-transform: uppercase; letter-spacing: .8px; font-size: 11px; padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); white-space: nowrap; }
+  .hist-table td { padding: 14px; border-bottom: 1px solid rgba(42,53,80,.5); vertical-align: middle; }
+  .hist-table tr:hover td { background: rgba(0,212,255,.03); }
+  .hist-table tr:last-child td { border-bottom: none; }
+  .ticker-cell { font-weight: 700; font-size: 15px; color: var(--accent); }
+  .company-cell { color: var(--text); font-size: 12px; max-width: 140px; }
+  .status-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .status-ganancia { background: rgba(16,185,129,.15); color: var(--green); border: 1px solid var(--green); }
+  .status-parcial { background: rgba(245,158,11,.12); color: var(--yellow); border: 1px solid var(--yellow); }
+  .status-perdida { background: rgba(239,68,68,.12); color: var(--red); border: 1px solid var(--red); }
+  .status-abierta { background: rgba(0,212,255,.1); color: var(--accent); border: 1px solid var(--accent); }
+  .pl-pos { color: var(--green); font-weight: 700; }
+  .pl-neg { color: var(--red); font-weight: 700; }
+  .pl-neu { color: var(--yellow); font-weight: 700; }
+  .pl-open { color: var(--accent); font-weight: 700; font-style: italic; }
+  .val-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .val-table th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .8px; padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  .val-table td { padding: 10px 12px; border-bottom: 1px solid rgba(42,53,80,.4); }
+  .val-table tr:last-child td { border-bottom: none; }
+  .check-yes { color: var(--green); font-weight: 700; }
+  .check-no { color: var(--red); font-weight: 700; }
+  .check-warn { color: var(--yellow); font-weight: 700; }
+  .risk-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+  .risk-label { width: 130px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+  .risk-bar-bg { flex: 1; height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+  .risk-bar-fill { height: 100%; border-radius: 3px; }
+  .risk-score { width: 40px; text-align: right; font-size: 13px; font-weight: 600; }
+  .catalyst-list { list-style: none; }
+  .catalyst-list li { padding: 10px 0; border-bottom: 1px solid rgba(42,53,80,.4); display: flex; align-items: flex-start; gap: 10px; font-size: 13px; }
+  .catalyst-list li:last-child { border-bottom: none; }
+  .cat-icon { font-size: 16px; flex-shrink: 0; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  @media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+  .exec-plan { display: flex; flex-direction: column; gap: 12px; }
+  .exec-step { display: flex; gap: 14px; align-items: flex-start; }
+  .step-circle { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .step-circle.entry-c { background: rgba(0,212,255,.15); border: 2px solid var(--accent); color: var(--accent); }
+  .step-circle.hold-c { background: rgba(251,191,36,.1); border: 2px solid var(--gold); color: var(--gold); }
+  .step-circle.exit-c { background: rgba(16,185,129,.15); border: 2px solid var(--green); color: var(--green); }
+  .step-circle.stop-c { background: rgba(239,68,68,.1); border: 2px solid var(--red); color: var(--red); }
+  .step-content .step-title { font-size: 13px; font-weight: 600; }
+  .step-content .step-desc { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .disclaimer { background: rgba(239,68,68,.05); border: 1px solid rgba(239,68,68,.2); border-radius: 8px; padding: 14px 18px; font-size: 11px; color: var(--muted); margin-top: 24px; line-height: 1.6; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .stat-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; }
+  .stat-card .sv { font-size: 32px; font-weight: 800; }
+  .stat-card .sl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .8px; margin-top: 6px; }
+  .stat-card.win-c { border-color: var(--green); }
+  .stat-card.partial-c { border-color: var(--yellow); }
+  .stat-card.loss-c { border-color: var(--red); }
+  .stat-card.total-c { border-color: var(--accent); }
+  .table-wrap { overflow-x: auto; }
+</style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-left">
-    <h1>📈 PLAN DE TRADING SEMANAL</h1>
-    <p>Análisis técnico + fundamental · Objetivo: <span id="objetivo"></span></p>
+<nav>
+  <div class="nav-brand">📈 <span>ACCIONES A CORTO PLAZO</span></div>
+  <div class="nav-tabs">
+    <button class="tab-btn active" onclick="showPage('p1', this)">🎯 Recomendación</button>
+    <button class="tab-btn" onclick="showPage('p2', this)">📋 Historial</button>
   </div>
-  <div class="header-right">
-    <div>Semana del <strong id="weekRange"></strong></div>
-    <div>Actualizado: <strong id="updated"></strong></div>
-    <div class="badge">⚡ CORTO PLAZO</div>
+  <div class="nav-date">🗓️ Jueves, 30 de Julio de 2026</div>
+</nav>
+
+<!-- ════════════════════ PAGE 1: RECOMENDACIÓN ════════════════════ -->
+<div class="page active" id="p1">
+
+  <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.25);border-radius:10px;padding:14px 18px;font-size:12px;color:#86efac;margin-bottom:20px;line-height:1.6;">
+    ✅ <strong>VZ cerrado — mejor trade del proyecto hasta ahora:</strong> venta real ejecutada el martes 28 jul a $47.92. Resultado: <strong style="color:var(--green);">+$428 (+9.81%)</strong> sobre 100 acciones ($4,364 reales). Detalle completo en la página Historial.
   </div>
-</div>
 
-<div class="toolbar">
-  <button class="btn" id="installBtn">📲 Instalar app</button>
-  <button class="btn" id="publishBtn">🚀 Publicar cambios</button>
-  <button class="btn btn-secondary" onclick="window.print()">🖨️ Imprimir / PDF</button>
-  <button class="btn btn-secondary" id="exportBtn">⬇️ Exportar datos (JSON)</button>
-  <button class="btn btn-danger" id="resetBtn">↺ Restaurar datos originales</button>
-</div>
-
-<div class="install-overlay" id="installOverlay">
-  <div class="install-modal">
-    <button class="install-close" id="installCloseBtn">✕</button>
-    <h2>📲 Instalar la app</h2>
-    <div id="installInstructions"></div>
-    <button class="btn" id="installCloseBtn2">Entendido</button>
+  <div style="background:rgba(100,116,139,.08);border:1px solid rgba(100,116,139,.3);border-radius:10px;padding:14px 18px;font-size:12px;color:#cbd5e1;margin-bottom:20px;line-height:1.6;">
+    📋 <strong>RDDT — no comprada, solo seguimiento:</strong> reporta resultados hoy jueves 30 jul después del cierre (AMC) — la reacción se conocerá mañana viernes 31. Confirmaste que no tomaste esta posición; se sigue el resultado únicamente para evaluar si la metodología hubiese funcionado.
   </div>
-</div>
 
-<div class="install-overlay" id="publishOverlay">
-  <div class="install-modal">
-    <button class="install-close" id="publishCloseBtn">✕</button>
-    <h2>🚀 Publicar cambios</h2>
-    <div id="publishConfigBox">
-      <p>Configura una vez la conexión con tu publicador (Cloudflare Worker):</p>
-      <label style="display:block; font-size:11px; color:#888; text-transform:uppercase; margin-bottom:4px;">URL del Worker</label>
-      <input type="text" id="publishUrl" placeholder="https://tu-worker.tu-usuario.workers.dev" style="width:100%; padding:8px; font-size:12px; border:1px solid #ddd; border-radius:5px; margin-bottom:10px;">
-      <label style="display:block; font-size:11px; color:#888; text-transform:uppercase; margin-bottom:4px;">Código secreto</label>
-      <input type="password" id="publishSecret" placeholder="Tu código secreto" style="width:100%; padding:8px; font-size:12px; border:1px solid #ddd; border-radius:5px; margin-bottom:14px;">
-      <button class="btn" id="publishSaveBtn">Guardar</button>
+  <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.25);border-radius:10px;padding:14px 18px;font-size:12px;color:#86efac;margin-bottom:20px;line-height:1.6;">
+    ✅ <strong>PLTR comprada — ejecución real:</strong> 45 acciones a <strong style="color:var(--green);">$121.92</strong> (capital real desplegado: <strong style="color:var(--green);">$5,486.40</strong>), jueves 30 jul. ⚠️ Esta ejecución es <strong style="color:var(--yellow);">mayor al tamaño reducido (50%, ~$2,500) que sugería la recomendación</strong> por Reglas 7+8 (alta dispersión histórica + mercado débil) — se reporta con honestidad (Regla 5) y se recalcula el riesgo/beneficio real más abajo.
+  </div>
+
+  <div style="background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.3);border-radius:10px;padding:16px 18px;font-size:12px;color:#fde68a;margin-bottom:20px;line-height:1.7;">
+    🔎 <strong>Checklist Metodología v2 aplicado a PLTR:</strong> pasa Regla 1 (catalizador duro: earnings Q2 lunes 3 ago AMC) y Regla 2 (volatilidad muy alta, movimiento implícito de opciones 9.6%-15.3% según fuente, superando el objetivo de +10%). Regla 11 (historial de reacciones, filtro principal): <strong>5 de 8 trimestres positivos (62.5%)</strong>, promedio +5.7%, aunque los últimos 4 trimestres se enfriaron (2/4 positivos, promedio ~0%) — señal amarilla de desaceleración, no roja. <strong>No pasa limpio Regla 6</strong> (dispersión alta: rango -12.1% a +24.0%) → sin objetivo base promedio confiable, solo stretch +10% con toma parcial cautelosa a +5%. Mercado general débil (Regla 8: SPY -1.0% y QQQ -2.9% bajo sus medias de 20 días) y la propia acción viene de una corrección de -24% en 2 meses por rotación fuera de software/IA de alta valuación (130-150x earnings). <strong>Ajuste aplicado: tamaño de posición reducido a la mitad</strong> del estándar del proyecto (Reglas 7+8).
+  </div>
+
+  <div class="rec-header">
+    <div class="rec-ticker">PLTR</div>
+    <div class="rec-company">Palantir Technologies Inc. (Class A) · NASDAQ</div>
+    <div class="rec-badges">
+      <span class="badge badge-buy">✅ COMPRADA — 45 acc. @ $121.92</span>
+      <span class="badge badge-week">Jue 30 Jul – Jue 6 Ago 2026</span>
+      <span class="badge badge-hot">📊 Earnings Q2 — lunes 3 ago (AMC)</span>
+      <span class="badge badge-hot" style="border-color:var(--yellow);color:var(--yellow);background:rgba(245,158,11,.1);">⚠️ Valuación exigente + tendencia de mercado débil</span>
     </div>
-    <div id="publishStatus" style="margin-top:14px; font-size:13px;"></div>
-    <div class="btn-row" style="margin-top:14px;">
-      <button class="btn" id="publishNowBtn">Publicar ahora</button>
-      <button class="btn btn-secondary" id="publishEditConfigBtn">Cambiar configuración</button>
-    </div>
-  </div>
-</div>
-
-<div class="tabs">
-  <button class="tab-btn active" data-tab="plan">Plan Semanal</button>
-  <button class="tab-btn" data-tab="historial">Historial &amp; P&amp;L</button>
-</div>
-
-<!-- ===================== PLAN SEMANAL ===================== -->
-<div class="tab-content active" id="tab-plan">
-
-  <div class="cards-row" id="picksRow"></div>
-
-  <div class="section-title">📅 Calendario operativo</div>
-  <div class="calendar" id="calendarRow"></div>
-
-  <div class="rules-row" id="rulesRow"></div>
-
-  <div class="disclaimer">
-    <strong>⚠️ ADVERTENCIA:</strong> Este documento es exclusivamente informativo y no constituye asesoría de inversión personalizada. Las operaciones de corto plazo conllevan riesgo significativo de pérdida de capital. Nunca invertir más del 5–10% del portafolio en una sola operación especulativa. Siempre respetar el stop-loss. Consultar con un asesor financiero certificado antes de operar.
-  </div>
-</div>
-
-<!-- ===================== HISTORIAL ===================== -->
-<div class="tab-content" id="tab-historial">
-
-  <div class="header" style="margin-top:0;">
-    <div class="header-left">
-      <h1>📋 HISTORIAL DE RECOMENDACIONES</h1>
-      <p>Registro acumulativo · Se eliminan operaciones con fecha de salida vencida al llegar a 10</p>
-    </div>
-    <div class="header-right">
-      <div>Recomendaciones activas/abiertas: <strong id="activeCount"></strong></div>
-      <div class="badge">📂 REGISTRO VIVO</div>
-    </div>
-  </div>
-
-  <div class="form-box">
-    <h3>➕ Añadir nueva recomendación</h3>
-    <div class="form-grid">
-      <label>Semana <input type="text" id="f-semana" placeholder="08 Jun 2026"></label>
-      <label>Ticker <input type="text" id="f-ticker" placeholder="NVDA"></label>
-      <label>Empresa <input type="text" id="f-empresa" placeholder="NVIDIA Corp."></label>
-      <label>Color ticker
-        <select id="f-color">
-          <option value="blue">Azul</option>
-          <option value="green">Verde</option>
-          <option value="red">Rojo</option>
-          <option value="purple">Morado</option>
-        </select>
-      </label>
-      <label>Entrada <input type="text" id="f-entry" placeholder="$120–125"></label>
-      <label>Objetivo <input type="text" id="f-target" placeholder="$135–145"></label>
-      <label>Stop <input type="text" id="f-stop" placeholder="$112"></label>
-      <label>Upside <input type="text" id="f-upside" placeholder="+10–16%"></label>
-      <label>Color upside
-        <select id="f-upcolor">
-          <option value="blue">Azul</option>
-          <option value="green">Verde</option>
-          <option value="red">Rojo</option>
-          <option value="purple">Morado</option>
-        </select>
-      </label>
-      <label>Fecha compra <input type="text" id="f-buydate" placeholder="8–9 Jun"></label>
-      <label>Fecha venta <input type="text" id="f-selldate" placeholder="12–15 Jun"></label>
-    </div>
-    <div class="btn-row">
-      <button class="btn" id="addRowBtn">Añadir operación</button>
-    </div>
-  </div>
-
-  <table class="hist-table">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Semana</th>
-        <th>Ticker</th>
-        <th>Empresa</th>
-        <th>Entrada</th>
-        <th>Objetivo</th>
-        <th>Stop</th>
-        <th>Upside</th>
-        <th>Comprar</th>
-        <th>Vender</th>
-        <th>Estado</th>
-        <th class="col-pnl">P&amp;L (<span id="pnlInvBadge"></span>)</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody id="histBody"></tbody>
-  </table>
-
-  <div class="pnl-summary">
-    <div class="pnl-title">💰 RESUMEN P&amp;L · Inversión por operación: $<span id="pnlInvTitle"></span></div>
-    <div class="pnl-grid" id="pnlGrid"></div>
-  </div>
-
-  <div class="legend-row">
-    <div class="legend-box">
-      <div class="legend-title">ESTADOS</div>
-      <div class="legend-items">
-        <span class="status-badge status-active">⚡ ACTIVA</span> Dentro del período de operación &nbsp;·&nbsp;
-        <span class="status-badge status-win">✅ GANADA</span> Objetivo alcanzado &nbsp;·&nbsp;
-        <span class="status-badge status-loss">❌ STOP</span> Stop-loss activado &nbsp;·&nbsp;
-        <span class="status-badge status-expired">🕐 VENCIDA</span> Fecha expirada sin resultado claro
+    <div class="rec-meta">
+      <div class="meta-item">
+        <label>Precio Actual (cierre jue. 30 jul)</label>
+        <div class="value accent">$121.58</div>
+      </div>
+      <div class="meta-item">
+        <label>Entrada Real (ejecutada)</label>
+        <div class="value green">$121.92</div>
+      </div>
+      <div class="meta-item">
+        <label>Objetivo Stretch</label>
+        <div class="value green">$133.74</div>
+      </div>
+      <div class="meta-item">
+        <label>Stop Loss</label>
+        <div class="value red">$114.00</div>
+      </div>
+      <div class="meta-item">
+        <label>Upside Potencial (real)</label>
+        <div class="value gold">+9.7%</div>
+      </div>
+      <div class="meta-item">
+        <label>Tamaño Real</label>
+        <div class="value accent">45 acc. · $5,486.40</div>
       </div>
     </div>
   </div>
 
-  <div class="rule-box">
-    <strong>📌 REGLA DE LIMPIEZA AUTOMÁTICA:</strong> Al llegar a 10 recomendaciones, se eliminan todas las filas cuya fecha de <em>Vender</em> ya haya pasado. Solo permanecen las operaciones con fecha de salida futura o en curso. El contador se reinicia y se agregan las nuevas recomendaciones de la semana. Usa el botón "🧹 Limpiar vencidas" para aplicar la regla manualmente.
+  <div class="price-grid">
+    <div class="price-card entry">
+      <div class="label">📍 Entrada Real (ejecutada)</div>
+      <div class="amount" style="color:var(--accent)">$121.92</div>
+      <div class="sub">Compra real: 45 acciones × $121.92 = $5,486.40 · jueves 30 de julio</div>
+    </div>
+    <div class="price-card target">
+      <div class="label">🎯 Toma Parcial / Objetivo Stretch</div>
+      <div class="amount" style="color:var(--green)">$127.66 / $133.74</div>
+      <div class="sub">+4.7% parcial / +9.7% stretch (desde entrada real) • hasta jueves 6 de agosto</div>
+    </div>
+    <div class="price-card stop">
+      <div class="label">🛑 Stop Loss</div>
+      <div class="amount" style="color:var(--red)">$114.00</div>
+      <div class="sub">-6.5% desde entrada real • bajo el mínimo intradía del 28 jul ($117.89)</div>
+    </div>
+    <div class="price-card upside-card">
+      <div class="label">💰 P&L Potencial (45 acciones reales · $5,486.40)</div>
+      <div class="amount" style="color:var(--gold)">+$532 stretch</div>
+      <div class="sub">Parcial +4.7%: +$258 · Stretch +9.7%: +$532 · Stop -6.5%: -$356</div>
+    </div>
   </div>
 
-  <div class="btn-row">
-    <button class="btn btn-secondary" id="cleanupBtn">🧹 Limpiar vencidas (si hay 10)</button>
+  <div class="two-col">
+    <div class="section">
+      <h3>Tesis de Inversión</h3>
+      <p style="font-size:13px;line-height:1.7;color:#cbd5e1;">
+        Palantir reporta resultados de Q2 2026 el <strong>lunes 3 de agosto</strong> (se estima después del cierre), con reacción
+        de mercado esperada el martes 4 — dentro de la ventana de la semana. Wall Street espera ingresos de
+        <strong style="color:var(--green);">$1.81B (+81% interanual)</strong> y EPS de <strong style="color:var(--green);">$0.34</strong>
+        (vs. $0.16 hace un año); Oppenheimer reiteró su rating "Outperform" con precio objetivo de $200 y anticipa una
+        aceleración de ingresos de ~85% YoY, por encima del propio guidance interno de la compañía (~79%). La empresa lleva
+        <strong>8 trimestres consecutivos superando estimados y elevando guía</strong>.
+      </p>
+      <br>
+      <p style="font-size:13px;line-height:1.7;color:#cbd5e1;">
+        La acción cayó <strong style="color:var(--red);">~24% en los últimos dos meses</strong> (de ~$160 el 1 jun a $121.58 hoy)
+        por una rotación sectorial fuera de software/IA de valuación exigente (PLTR cotiza a ~113-150x earnings forward y
+        ~60-71x ventas), presión sobre el gasto comercial señalada por casas de research, y debilidad general del mercado.
+        El RSI 14d se ubica en <strong style="color:var(--accent);">42.8</strong> (neutral, recuperándose desde un mínimo de
+        ~27 el 25 de junio). El mercado de opciones price a un movimiento implícito post-resultados de entre
+        <strong style="color:var(--gold);">9.6% y 15.3%</strong> según la fuente — en el extremo superior, el doble del
+        movimiento promedio absoluto de las últimas 4 reacciones (~7.4%), y coherente con el objetivo stretch de +10% del
+        proyecto (Regla 9). El riesgo principal no es el beat de EPS (probabilidad implícita ~88% según mercados de
+        predicción) sino la <strong style="color:var(--yellow);">guía y el múltiplo</strong>: con expectativas tan altas ya
+        incorporadas al precio, cualquier señal de desaceleración en el gasto comercial puede gatillar una reacción negativa
+        pese a un beat técnico.
+      </p>
+    </div>
+
+    <div class="section">
+      <h3>Catalizadores esta Semana</h3>
+      <ul class="catalyst-list">
+        <li>
+          <span class="cat-icon">📊</span>
+          <div><strong>Resultados Q2 2026 — Lunes 3 de agosto</strong><br><span style="color:var(--muted);font-size:12px;">Consenso: EPS $0.34, ingresos $1.81B (+81% YoY). Movimiento implícito de opciones: 9.6%-15.3% según fuente.</span></div>
+        </li>
+        <li>
+          <span class="cat-icon">🔥</span>
+          <div><strong>Racha de 8 trimestres superando y elevando guía</strong><br><span style="color:var(--muted);font-size:12px;">Oppenheimer espera aceleración a ~85% YoY, por encima del guidance interno (~79%). PT $200 (Outperform).</span></div>
+        </li>
+        <li>
+          <span class="cat-icon">⚠️</span>
+          <div><strong>Corrección reciente por rotación fuera de software de IA</strong><br><span style="color:var(--muted);font-size:12px;">-24% desde el 1 jun por valuación exigente (113-150x earnings, 60-71x ventas) y señales de debilidad en gasto comercial (Cleveland Research). Overhang de sentimiento que persiste hasta el reporte.</span></div>
+        </li>
+        <li>
+          <span class="cat-icon">🔄</span>
+          <div><strong>RSI recuperándose desde sobreventa</strong><br><span style="color:var(--muted);font-size:12px;">Tocó ~27 el 25 de junio (sobreventa clara); hoy en 42.8, aún neutral-bajo, con espacio técnico para un rebote si los resultados sorprenden.</span></div>
+        </li>
+        <li>
+          <span class="cat-icon">🏦</span>
+          <div><strong>Mercado general en tendencia débil (Regla 8)</strong><br><span style="color:var(--muted);font-size:12px;">SPY 1.0% y QQQ 2.9% debajo de sus medias de 20 días esta semana — contexto de fondo menos favorable, motivo adicional para reducir tamaño.</span></div>
+        </li>
+      </ul>
+    </div>
   </div>
 
+  <!-- HISTORIAL DE REACCIONES A RESULTADOS (Regla 11 — filtro principal) -->
+  <div class="section">
+    <h3>Historial de Reacciones a Resultados — Últimos 8 Trimestres (Regla 11, filtro principal)</h3>
+    <table class="val-table">
+      <thead>
+        <tr>
+          <th>Fecha Reporte</th>
+          <th>Reacción Precio (cierre reporte→cierre siguiente)</th>
+          <th>Resultado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>05 ago 2024</td><td class="check-yes" style="font-size:15px;">+10.38%</td><td class="check-yes">✅ Positiva</td></tr>
+        <tr><td>04 nov 2024</td><td class="check-yes" style="font-size:15px;">+23.48%</td><td class="check-yes">✅ Positiva</td></tr>
+        <tr><td>03 feb 2025</td><td class="check-yes" style="font-size:15px;">+23.99%</td><td class="check-yes">✅ Positiva</td></tr>
+        <tr><td>05 may 2025</td><td class="check-no">-12.05%</td><td class="check-no">❌ Negativa</td></tr>
+        <tr><td>04 ago 2025</td><td class="check-yes">+7.85%</td><td class="check-yes">✅ Positiva</td></tr>
+        <tr><td>03 nov 2025</td><td class="check-no">-7.94%</td><td class="check-no">❌ Negativa</td></tr>
+        <tr><td>02 feb 2026</td><td class="check-yes">+6.85%</td><td class="check-yes">✅ Positiva</td></tr>
+        <tr><td>04 may 2026</td><td class="check-no">-6.93%</td><td class="check-no">❌ Negativa</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:12px;font-size:12px;color:var(--yellow);">
+      ⚠️ <strong>5 de 8 reacciones positivas (62.5%), promedio +5.70%</strong> — pero con dispersión alta (rango -12.1% a
+      +24.0%). Los últimos 4 trimestres se enfriaron notablemente (2 de 4 positivos, promedio ~0%: +7.85% / -7.94% / +6.85% /
+      -6.93%) frente a los 4 anteriores, mucho más fuertes (3 de 4 positivos, promedio +11.45%, con dos saltos de +23%+).
+      Esta desaceleración es una <strong style="color:var(--yellow);">bandera amarilla</strong> a vigilar, no roja — el hit
+      rate se mantiene por encima del 50% y el promedio total sigue siendo positivo, a diferencia de un caso descartado como
+      MRNA (ver sección de screening). La dispersión es demasiado alta para fijar un "objetivo base" confiable (Regla 6): se
+      trata como alta incertidumbre y se reduce el tamaño de posición.
+    </p>
+  </div>
+
+  <div class="two-col">
+    <div class="section">
+      <h3>Niveles Técnicos Clave</h3>
+      <div style="font-size:13px;">
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+          <span style="color:var(--muted)">Precio Actual (jueves 30 jul)</span><span style="color:var(--accent);font-weight:700;">$121.58</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+          <span style="color:var(--muted)">Mínimo intradía 28 jul</span><span style="color:var(--yellow);font-weight:700;">$117.89</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+          <span style="color:var(--muted)">Cierre 1 jun (pre-corrección)</span><span style="color:var(--muted);font-weight:700;">$160.65</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+          <span style="color:var(--muted)">RSI 14d (hoy)</span><span style="color:var(--accent);font-weight:700;">42.8 (neutral, recuperando desde ~27)</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+          <span style="color:var(--muted)">Toma parcial (+5%)</span><span style="color:var(--green);font-weight:700;">$127.66</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;">
+          <span style="color:var(--muted)">Objetivo +10% (stretch)</span><span style="color:var(--green);font-weight:700;">$133.74</span>
+        </div>
+      </div>
+      <div style="margin-top:14px;padding:10px;background:rgba(245,158,11,.08);border-radius:8px;border:1px solid rgba(245,158,11,.2);font-size:12px;color:#fde68a;">
+        ⚠️ SPY cotiza 1.0% y QQQ 2.9% debajo de sus medias de 20 días esta semana (Regla 8) — tendencia de corto plazo débil.
+        Motivo adicional, junto con la alta dispersión histórica y la valuación exigente, para el tamaño de posición reducido.
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Plan de Ejecución</h3>
+      <div class="exec-plan">
+        <div class="exec-step">
+          <div class="step-circle entry-c">1</div>
+          <div class="step-content">
+            <div class="step-title">COMPRA — Ejecutada jueves 30 de julio</div>
+            <div class="step-desc">Entrada real $121.92, 45 acciones ($5,486.40). Tamaño mayor al ~50% reducido que sugerían las Reglas 7+8 (dispersión alta + mercado débil) — se documenta la desviación con honestidad (Regla 5); el riesgo real en juego es mayor al planteado originalmente.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="step-circle hold-c">2</div>
+          <div class="step-content">
+            <div class="step-title">MONITOREAR — Viernes 31 jul a Lunes 3 ago</div>
+            <div class="step-desc">Vigilar reacción de RDDT (reporta hoy) y clima general de mercado antes del reporte propio de PLTR el lunes. Sin cambios de plan salvo que el stop se toque antes.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="step-circle exit-c">3</div>
+          <div class="step-content">
+            <div class="step-title">RESULTADOS Y VENTA — Lunes 3 (AMC) / Martes 4 de agosto</div>
+            <div class="step-desc">Vender una porción al tocar $127.66 (+5%, toma de ganancias disciplinada dada la alta dispersión histórica) y mover el stop del resto a breakeven o mejor. Vender el resto en $133.74 (+10%, stretch) si la reacción es fuerte. Si el jueves 6 no tocó target ni stop pero la tendencia sigue sana, evaluar extender 2-3 días (Regla 4) antes de forzar el cierre.</div>
+          </div>
+        </div>
+        <div class="exec-step">
+          <div class="step-circle stop-c">S</div>
+          <div class="step-content">
+            <div class="step-title">STOP — Bajo $114.00</div>
+            <div class="step-desc">Si PLTR cae por debajo de $114.00 (-6.2% desde la entrada), cerrar posición. Nivel ubicado bajo el mínimo intradía del 28 de julio ($117.89).</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Screening con Metodología v2 — Jueves 30 jul (semana Jul 30 – Ago 6)</h3>
+    <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:10px;">
+      Varios de los nombres de alta beta que reportaban resultados con movimiento implícito de dos dígitos esta semana pasada
+      (QCOM, Bloom Energy, Seagate, KLAC) ya habían reportado el 28-29 jul — catalizador resuelto antes de poder comprar, igual
+      que el caso de DHR la semana del 20 jul. Blue chips de baja volatilidad que reportan el 31 jul (XOM, CVX, ABBV, ETN,
+      Colgate, etc.) se descartan por Regla 2, igual que VZ/BAC en semanas previas. Entre los candidatos con catalizador
+      genuinamente por delante y volatilidad compatible con +10%, se compararon:
+    </p>
+    <table class="val-table">
+      <thead><tr><th>Ticker</th><th>Reporta</th><th>Decisión</th></tr></thead>
+      <tbody>
+        <tr><td class="ticker-cell" style="font-size:13px;color:var(--gold);">PLTR</td><td style="font-size:12px;color:var(--muted);">Lun 3 ago (AMC est.)</td><td style="font-size:12px;color:var(--muted);"><strong style="color:var(--green);">ELEGIDA.</strong> 5/8 reacciones positivas (62.5%), promedio +5.7%. Movimiento implícito de opciones (9.6-15.3%) supera el objetivo de +10%. Mejor ventana temporal (reporta lunes, deja margen hasta el jueves siguiente).</td></tr>
+        <tr><td class="ticker-cell" style="font-size:13px;">DASH</td><td style="font-size:12px;color:var(--muted);">Mié 5 ago</td><td style="font-size:12px;color:var(--muted);"><span class="check-warn">Casi elegida.</span> 6/8 positivas (75%) pero promedio -0.3% por un outlier de -17.45% (nov-2025) — dispersión aún mayor que PLTR. Reporta más tarde en la semana (miércoles), dejando menos margen dentro de la ventana de 1 semana desde hoy.</td></tr>
+        <tr><td class="ticker-cell" style="font-size:13px;">SHOP / UBER</td><td style="font-size:12px;color:var(--muted);">Mié 5 ago</td><td style="font-size:12px;color:var(--muted);"><span class="check-no">Descartadas por tiempo.</span> Mismo catalizador (5 ago) sin revisar a fondo su historial de reacciones dado que PLTR ya cumplía el checklist con margen y mejor timing.</td></tr>
+        <tr><td class="ticker-cell" style="font-size:13px;">MRNA</td><td style="font-size:12px;color:var(--muted);">Vie 31 jul (BMO)</td><td style="font-size:12px;color:var(--muted);"><span class="check-no">Descartada — Regla 11.</span> Solo 2 de 8 reacciones a resultados positivas (25%), promedio -2.0% (negativo) — mismo patrón de "sell the news" que descartó a HOOD la semana pasada. Tiene un segundo catalizador atractivo (decisión FDA/PDUFA el 5 ago para su vacuna de gripe mRNA-1010, con voto unánime 9-0 del comité asesor), pero el catalizador de earnings en sí falla el filtro principal — no compensa el patrón negativo recurrente.</td></tr>
+        <tr><td class="ticker-cell" style="font-size:13px;">QCOM / BE / STX / KLAC</td><td style="font-size:12px;color:var(--muted);">Ya reportaron 28-29 jul</td><td style="font-size:12px;color:var(--muted);"><span class="check-no">Descartadas — catalizador resuelto.</span> Movimientos implícitos de dos dígitos, pero ya reportaron antes de poder comprar. Próximo reporte en octubre/noviembre, fuera de ventana.</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:10px;font-size:12px;color:var(--muted);">
+      <strong>Regla 8 (tendencia de mercado):</strong> SPY cotiza 1.0% debajo de su media de 20 días y QQQ un 2.9% debajo —
+      tendencia de corto plazo débil, similar a la semana pasada. No es una tendencia bajista clara que justifique "no
+      operar", pero sí reducir tamaño — aplicado a la recomendación de PLTR.
+    </p>
+  </div>
+
+  <div class="section">
+    <h3>Evaluación de Riesgos</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+      <div>
+        <div class="risk-row">
+          <span class="risk-label">Valuación exigente</span>
+          <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:80%;background:var(--red);"></div></div>
+          <span class="risk-score" style="color:var(--red)">Alto</span>
+        </div>
+        <div class="risk-row">
+          <span class="risk-label">Dispersión histórica</span>
+          <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:70%;background:var(--red);"></div></div>
+          <span class="risk-score" style="color:var(--red)">Alto</span>
+        </div>
+        <div class="risk-row">
+          <span class="risk-label">Binario earnings (lun.)</span>
+          <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:65%;background:var(--yellow);"></div></div>
+          <span class="risk-score" style="color:var(--yellow)">Medio-Alto</span>
+        </div>
+        <div class="risk-row">
+          <span class="risk-label">Tendencia mercado (SPY/QQQ)</span>
+          <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:55%;background:var(--yellow);"></div></div>
+          <span class="risk-score" style="color:var(--yellow)">Medio</span>
+        </div>
+        <div class="risk-row">
+          <span class="risk-label">Liquidez</span>
+          <div class="risk-bar-bg"><div class="risk-bar-fill" style="width:10%;background:var(--green);"></div></div>
+          <span class="risk-score" style="color:var(--green)">Bajo</span>
+        </div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);line-height:1.7;">
+        <p style="margin-bottom:8px;"><span style="color:var(--red);">⚡</span> <strong>Valuación exigente en un mercado que ya está rotando fuera de software de IA:</strong> a 113-150x earnings y 60-71x ventas, cualquier guía que no acelere lo suficiente puede gatillar una caída pese a un beat de EPS.</p>
+        <p style="margin-bottom:8px;"><span style="color:var(--red);">⚡</span> <strong>Últimos 4 trimestres más flojos:</strong> el hit rate bajó de 3/4 a 2/4 y el promedio de +11.45% a ~0% — posible señal de que la magnitud de las sorpresas se está agotando.</p>
+        <p style="margin-bottom:8px;"><span style="color:var(--yellow);">⚡</span> <strong>Mercado general débil:</strong> SPY y QQQ por debajo de sus medias de 20 días esta semana, contexto de fondo menos favorable para cualquier posición larga de alta beta.</p>
+        <p><span style="color:var(--green);">✅</span> <strong>Mitigante:</strong> 8 trimestres consecutivos superando y elevando guía, movimiento implícito de opciones (9.6-15.3%) que supera el objetivo de +10%, RSI recuperándose desde sobreventa, y tamaño de posición reducido a la mitad con stop técnico definido.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ Esta recomendación es un análisis técnico-fundamental basado en patrones históricos y no constituye asesoría financiera profesional. Toda inversión implica riesgo de pérdida de capital. PLTR combina alta valuación, alta dispersión histórica de reacciones a resultados y un mercado general en tendencia débil — por eso se recomienda la mitad del tamaño de posición estándar del proyecto.
+  </div>
 </div>
 
-<script src="app.js"></script>
+<!-- ════════════════════ PAGE 2: HISTORIAL ════════════════════ -->
+<div class="page" id="p2">
+
+  <div class="section" style="margin-bottom:24px;background:linear-gradient(135deg,#0f172a,#1c2438);border-color:var(--accent2);">
+    <h3 style="color:var(--gold);">📋 Historial de Recomendaciones</h3>
+    <p style="font-size:13px;color:var(--muted);line-height:1.6;">
+      Registro de todas las recomendaciones semanales emitidas, se hayan comprado o no — es el backtest de la
+      metodología. P&amp;L calculado sobre base comparable de <strong style="color:var(--text)">USD $5,000</strong>
+      por trade. El objetivo del proyecto sigue siendo +10% (stretch) en un máximo de 1 semana; desde la Metodología v2
+      (20-jul-2026) se exige además catalizador duro, filtro de volatilidad, y honestidad en el marcador (Reglas 1-11,
+      ver <em>CRITERIOS_METODOLOGIA_V2.md</em>). <strong style="color:var(--text)">Este registro es independiente de
+      la cartera real de Alejandro</strong> — para eso ver la sección "🧾 Cartera Real" más abajo, que solo incluye lo
+      que él confirmó explícitamente que compró o vendió.
+    </p>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="sv" style="color:var(--text);">7</div>
+      <div class="sl">Total Trades</div>
+    </div>
+    <div class="stat-card">
+      <div class="sv" style="color:var(--text);">0</div>
+      <div class="sl">Ganadoras (+10%)</div>
+    </div>
+    <div class="stat-card partial-c">
+      <div class="sv" style="color:var(--yellow);">3</div>
+      <div class="sl">Parciales</div>
+    </div>
+    <div class="stat-card loss-c">
+      <div class="sv" style="color:var(--red);">2</div>
+      <div class="sl">Pérdidas</div>
+    </div>
+    <div class="stat-card total-c">
+      <div class="sv" style="color:var(--accent);">2</div>
+      <div class="sl">En Curso</div>
+    </div>
+    <div class="stat-card">
+      <div class="sv" style="color:var(--green);">+$694</div>
+      <div class="sl">P&L Total Metodología (cerrados)</div>
+    </div>
+    <div class="stat-card">
+      <div class="sv" style="color:var(--green);">+2.85%</div>
+      <div class="sl">Retorno Blended Metodología (cerrados, $5K/trade)</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Registro Semanal</h3>
+    <div class="table-wrap">
+      <table class="hist-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Semana</th>
+            <th>Ticker</th>
+            <th>Empresa</th>
+            <th>Entrada</th>
+            <th>Objetivo</th>
+            <th>Stop</th>
+            <th>Upside</th>
+            <th>Compra</th>
+            <th>Venta</th>
+            <th>Estado</th>
+            <th>P&L ($5K)</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <!-- TRADE 1: MU -->
+          <tr>
+            <td style="color:var(--muted);font-size:12px;">01</td>
+            <td style="font-size:12px;">Jun 15–19 2026</td>
+            <td class="ticker-cell">MU</td>
+            <td class="company-cell">Micron Technology</td>
+            <td style="font-weight:600;">$1,088</td>
+            <td style="color:var(--green);">$1,200</td>
+            <td style="color:var(--red);">$1,020</td>
+            <td style="color:var(--gold);font-weight:700;">+10.3%</td>
+            <td style="font-size:12px;">Lun 15 Jun<br><span style="color:var(--muted);">$1,087.99</span></td>
+            <td style="font-size:12px;">Jue 18 Jun<br><span style="color:var(--yellow);">$1,133.99</span></td>
+            <td><span class="status-badge status-parcial">PARCIAL</span></td>
+            <td>
+              <div class="pl-neu">+$193</div>
+              <div style="font-size:11px;color:var(--muted);">+4.2% en ventana</div>
+            </td>
+          </tr>
+
+          <!-- TRADE 2: NVDA -->
+          <tr>
+            <td style="color:var(--muted);font-size:12px;">02</td>
+            <td style="font-size:12px;">Jun 30 – Jul 2 2026</td>
+            <td class="ticker-cell">NVDA</td>
+            <td class="company-cell">NVIDIA Corporation</td>
+            <td style="font-weight:600;">$196.00</td>
+            <td style="color:var(--green);">$214.50</td>
+            <td style="color:var(--red);">$184.50</td>
+            <td style="color:var(--gold);font-weight:700;">+10.0%</td>
+            <td style="font-size:12px;">Mar 30 Jun<br><span style="color:var(--muted);">$196.00</span></td>
+            <td style="font-size:12px;">Jue 2 Jul<br><span style="color:var(--muted);">$194.83</span></td>
+            <td><span class="status-badge status-perdida">PÉRDIDA</span></td>
+            <td>
+              <div class="pl-neg">-$30</div>
+              <div style="font-size:11px;color:var(--muted);">-0.6% en ventana</div>
+            </td>
+          </tr>
+
+          <!-- TRADE 3: BAC (CLOSED) -->
+          <tr>
+            <td style="color:var(--muted);font-size:12px;">03</td>
+            <td style="font-size:12px;">Jul 13 – Jul 17 2026</td>
+            <td class="ticker-cell">BAC</td>
+            <td class="company-cell">Bank of America</td>
+            <td style="font-weight:600;">$59.34</td>
+            <td style="color:var(--green);">$65.27</td>
+            <td style="color:var(--red);">$56.00</td>
+            <td style="color:var(--gold);font-weight:700;">+10.0%</td>
+            <td style="font-size:12px;">Lun 13 Jul<br><span style="color:var(--muted);">$59.34</span></td>
+            <td style="font-size:12px;">Vie 17 Jul<br><span style="color:var(--muted);">$61.34*</span></td>
+            <td><span class="status-badge status-parcial">PARCIAL</span></td>
+            <td>
+              <div class="pl-neu">+$168</div>
+              <div style="font-size:11px;color:var(--muted);">+3.4% en ventana</div>
+            </td>
+          </tr>
+
+          <!-- TRADE 4: NKE (CLOSED) -->
+          <tr>
+            <td style="color:var(--muted);font-size:12px;">04</td>
+            <td style="font-size:12px;">Jul 13 – Jul 17 2026</td>
+            <td class="ticker-cell" style="color:var(--yellow);">NKE</td>
+            <td class="company-cell">NIKE, Inc. <span style="color:var(--yellow);">(rebote)</span></td>
+            <td style="font-weight:600;">$44.29</td>
+            <td style="color:var(--green);">$48.72</td>
+            <td style="color:var(--red);">$41.80</td>
+            <td style="color:var(--gold);font-weight:700;">+10.0%</td>
+            <td style="font-size:12px;">Lun 13 Jul<br><span style="color:var(--accent);">$44.29</span></td>
+            <td style="font-size:12px;">Vie 17 Jul<br><span style="color:var(--muted);">$43.71*</span></td>
+            <td><span class="status-badge status-perdida">PÉRDIDA</span></td>
+            <td>
+              <div class="pl-neg">-$65</div>
+              <div style="font-size:11px;color:var(--muted);">-1.3% en ventana</div>
+            </td>
+          </tr>
+
+          <!-- TRADE 5: VZ (CLOSED) -->
+          <tr>
+            <td style="color:var(--muted);font-size:12px;">05</td>
+            <td style="font-size:12px;">Jul 17 – Jul 28 2026</td>
+            <td class="ticker-cell">VZ</td>
+            <td class="company-cell">Verizon Communications</td>
+            <td style="font-weight:600;">$43.64</td>
+            <td style="color:var(--green);">$48.00 (stretch) / $44.24 (base)</td>
+            <td style="color:var(--red);">$41.20</td>
+            <td style="color:var(--gold);font-weight:700;">+10.0%</td>
+            <td style="font-size:12px;">Vie 17 Jul<br><span style="color:var(--green);">$43.64 (100 acc.)</span></td>
+            <td style="font-size:12px;">Mar 28 Jul<br><span style="color:var(--green);">$47.92 ✅</span></td>
+            <td><span class="status-badge status-parcial">PARCIAL (mejor trade)</span></td>
+            <td>
+              <div class="pl-pos">+$428</div>
+              <div style="font-size:11px;color:var(--muted);">+9.81% (100 acc., $4,364 reales)</div>
+            </td>
+          </tr>
+
+          <!-- TRADE 6: RDDT (CURRENT) -->
+          <tr style="background:rgba(0,212,255,.035);">
+            <td style="color:var(--muted);font-size:12px;">06</td>
+            <td style="font-size:12px;">Jul 27 – Jul 31 2026</td>
+            <td class="ticker-cell">RDDT</td>
+            <td class="company-cell">Reddit, Inc.</td>
+            <td style="font-weight:600;">$179.23</td>
+            <td style="color:var(--green);">$197.15 (stretch) / $188.19 (parcial +5%)</td>
+            <td style="color:var(--red);">$165.00</td>
+            <td style="color:var(--gold);font-weight:700;">+10.0%</td>
+            <td style="font-size:12px;">Lun 27 Jul<br><span style="color:var(--accent);">$179.23</span></td>
+            <td style="font-size:12px;">Vie 31 Jul<br><span style="color:var(--muted);">Pendiente</span></td>
+            <td><span class="status-badge status-abierta">⏳ EN CURSO</span></td>
+            <td class="pl-open">Abierta (tamaño 50%) · reporta hoy AMC</td>
+          </tr>
+
+          <!-- TRADE 7: PLTR (NEW) -->
+          <tr style="background:rgba(0,212,255,.035);">
+            <td style="color:var(--muted);font-size:12px;">07</td>
+            <td style="font-size:12px;">Jul 30 – Ago 6 2026</td>
+            <td class="ticker-cell">PLTR</td>
+            <td class="company-cell">Palantir Technologies</td>
+            <td style="font-weight:600;">$121.58</td>
+            <td style="color:var(--green);">$133.74 (stretch) / $127.66 (parcial +5%)</td>
+            <td style="color:var(--red);">$114.00</td>
+            <td style="color:var(--gold);font-weight:700;">+10.0%</td>
+            <td style="font-size:12px;">Jue 30 Jul<br><span style="color:var(--accent);">$121.58</span></td>
+            <td style="font-size:12px;">Jue 6 Ago<br><span style="color:var(--muted);">Pendiente</span></td>
+            <td><span class="status-badge status-abierta">⏳ EN CURSO</span></td>
+            <td class="pl-open">Recomendación (tamaño 50% sugerido) · reporta lun 3 ago</td>
+          </tr>
+
+        </tbody>
+        <tfoot>
+          <tr style="background:var(--bg3);">
+            <td colspan="11" style="font-weight:700;font-size:12px;color:var(--text);text-align:right;padding:12px 14px;">TOTAL — 5 cerradas (metodología, $5K/trade)</td>
+            <td style="padding:12px 14px;"><div class="pl-pos">+$694</div><div style="font-size:11px;color:var(--muted);">+2.85% blended s/$24,364</div></td>
+          </tr>
+          <tr style="background:var(--bg3);">
+            <td colspan="11" style="font-weight:700;font-size:12px;color:var(--text);text-align:right;padding:12px 14px;">TOTAL — 2 abiertas (no realizado a precio de mercado hoy, referencia)</td>
+            <td style="padding:12px 14px;"><div class="pl-pos">+$39</div><div style="font-size:11px;color:var(--muted);">RDDT $180.47 (+$33) · PLTR-ref $121.72 (+$6)</div></td>
+          </tr>
+          <tr style="background:rgba(0,212,255,.05);border-top:2px solid var(--accent);">
+            <td colspan="11" style="font-weight:800;font-size:13px;color:var(--accent);text-align:right;padding:12px 14px;">TOTAL GENERAL — 7 recomendaciones (cerradas + abiertas a mercado)</td>
+            <td style="padding:12px 14px;"><div class="pl-pos" style="font-size:15px;">+$733</div><div style="font-size:11px;color:var(--muted);">metodología, no es la cartera real</div></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:10px;">*Precios de cierre de BAC y NKE tomados intradía el viernes 17 jul (~12:00 PM CST, mercado aún en sesión). Esta tabla registra <strong>todas las recomendaciones emitidas</strong> con sus niveles y resultado según el precio de mercado, se hayan comprado o no en la práctica — es el backtest de la metodología (Regla 5: marcador honesto). Para ver qué se compró/vendió realmente en la cartera de Alejandro, ver la sección "🧾 Cartera Real" más abajo.</p>
+  </div>
+
+  <div class="section" style="border-color:var(--green);">
+    <h3 style="color:var(--green);">🧾 Cartera Real — Compras y Ventas Confirmadas</h3>
+    <p style="font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:14px;">
+      Solo entran acá las operaciones que Alejandro confirmó explícitamente ("compré"/"vendí"). No se asume que una
+      recomendación fue tomada solo porque se emitió — MU, la recomendación de NVDA del 30 jun, BAC, NKE y RDDT
+      <strong>no fueron compradas</strong>. NVDA sí tiene una posición real, pero es una compra distinta y anterior
+      (3 de junio), sin relación con la recomendación semanal de NVDA (30 jun–2 jul) del Historial de arriba.
+    </p>
+    <div class="table-wrap">
+      <table class="hist-table">
+        <thead>
+          <tr>
+            <th>Ticker</th>
+            <th>Origen</th>
+            <th>Compra</th>
+            <th>Capital Real</th>
+            <th>Precio Actual (30 jul)</th>
+            <th>Venta</th>
+            <th>Estado</th>
+            <th>P&L Real</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="ticker-cell">VZ</td>
+            <td class="company-cell" style="font-size:11px;color:var(--muted);">Recomendación #05</td>
+            <td style="font-size:12px;">Vie 17 Jul<br><span style="color:var(--green);">$43.64 × 100 acc.</span></td>
+            <td style="font-weight:600;">$4,364.00</td>
+            <td style="color:var(--muted);">—</td>
+            <td style="font-size:12px;">Mar 28 Jul<br><span style="color:var(--green);">$47.92 × 100 acc.</span></td>
+            <td><span class="status-badge status-ganancia">CERRADA</span></td>
+            <td><div class="pl-pos">+$428.00</div><div style="font-size:11px;color:var(--muted);">+9.81% realizado</div></td>
+          </tr>
+          <tr>
+            <td class="ticker-cell">NVDA</td>
+            <td class="company-cell" style="font-size:11px;color:var(--muted);">Posición personal (sin relación a recomendación)</td>
+            <td style="font-size:12px;">Mié 3 Jun<br><span style="color:var(--accent);">$221.76 × 40 acc.</span></td>
+            <td style="font-weight:600;">$8,870.40</td>
+            <td style="font-weight:600;">$193.59</td>
+            <td style="font-size:12px;color:var(--muted);">Abierta</td>
+            <td><span class="status-badge status-abierta">⏳ ABIERTA</span></td>
+            <td><div class="pl-neg">-$1,126.80</div><div style="font-size:11px;color:var(--muted);">-12.70% no realizado</div></td>
+          </tr>
+          <tr style="background:rgba(0,212,255,.035);">
+            <td class="ticker-cell">PLTR</td>
+            <td class="company-cell" style="font-size:11px;color:var(--muted);">Recomendación #07</td>
+            <td style="font-size:12px;">Jue 30 Jul<br><span style="color:var(--accent);">$121.92 × 45 acc.</span></td>
+            <td style="font-weight:600;">$5,486.40</td>
+            <td style="font-weight:600;">$121.72</td>
+            <td style="font-size:12px;color:var(--muted);">Abierta</td>
+            <td><span class="status-badge status-abierta">⏳ ABIERTA</span></td>
+            <td><div class="pl-neg">-$9.00</div><div style="font-size:11px;color:var(--muted);">-0.16% no realizado</div></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr style="background:var(--bg3);">
+            <td colspan="7" style="font-weight:700;font-size:12px;color:var(--text);text-align:right;padding:12px 14px;">TOTAL — Realizado (VZ, cerrada)</td>
+            <td style="padding:12px 14px;"><div class="pl-pos">+$428.00</div><div style="font-size:11px;color:var(--muted);">+9.81%</div></td>
+          </tr>
+          <tr style="background:var(--bg3);">
+            <td colspan="7" style="font-weight:700;font-size:12px;color:var(--text);text-align:right;padding:12px 14px;">TOTAL — No realizado (NVDA + PLTR, abiertas @ 30 jul)</td>
+            <td style="padding:12px 14px;"><div class="pl-neg">-$1,135.80</div><div style="font-size:11px;color:var(--muted);">NVDA -$1,126.80 · PLTR -$9.00</div></td>
+          </tr>
+          <tr style="background:rgba(239,68,68,.06);border-top:2px solid var(--red);">
+            <td colspan="7" style="font-weight:800;font-size:13px;color:var(--red);text-align:right;padding:12px 14px;">TOTAL GENERAL CARTERA REAL — realizado + no realizado</td>
+            <td style="padding:12px 14px;"><div class="pl-neg" style="font-size:15px;">-$707.80</div><div style="font-size:11px;color:var(--muted);">neto a hoy</div></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <p style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6;">
+      Capital real desplegado hoy en posiciones abiertas: $8,870.40 (NVDA) + $5,486.40 (PLTR) = $14,356.80. Precios
+      actuales tomados del conector financiero (cierre 30 jul); se actualizarán en la próxima ejecución.
+    </p>
+  </div>
+
+  <!-- NOTAS TRADES CERRADOS -->
+  <div class="section">
+    <h3 style="color:var(--yellow);">📌 Notas — Trade #01: MU (Jun 15-18, 2026)</h3>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+      Pre-earnings run de Micron antes de resultados Q3 FY2026. Reportó earnings explosivos el 24 jun y marcó ATH de
+      <strong style="color:var(--gold);">$1,255</strong> el 25 de junio, pero en la ventana de salida recomendada (Jun 18-19)
+      solo capturó <strong style="color:var(--yellow);">+4.2%</strong> del +10.3% objetivo (target alcanzado el 22 jun, fuera de ventana).
+    </p>
+  </div>
+
+  <div class="section">
+    <h3 style="color:var(--red);">📌 Notas — Trade #02: NVDA (Jun 30 – Jul 2, 2026)</h3>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+      Rebote técnico desde sobreventa (RSI 37-40) sobre la MA200 ($190.64). Cerró la ventana en $194.83 (-0.6%), sin tocar
+      stop ni target. El 10 de julio alcanzó $210.96 (+7.6% desde entrada), muy cerca del objetivo, pero fuera de la ventana de 1 semana.
+      Sin catalizador duro dentro de la ventana — patrón que la Metodología v2 (Regla 1) descarta hacia adelante.
+      Esta recomendación no fue comprada. Nota: Alejandro sí tiene una posición real en NVDA (40 acciones a $221.76,
+      comprada el 3 de junio), pero es anterior y no está relacionada con esta recomendación — ver "🧾 Cartera Real".
+    </p>
+  </div>
+
+  <div class="section">
+    <h3 style="color:var(--yellow);">📌 Notas — Trade #03: BAC (Jul 13-17, 2026)</h3>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+      Recomendación con catalizador de resultados (14 jul, BMO). BAC reaccionó positivamente: subió de $59.50 (13 jul) a un
+      máximo intra-semana de $62.115 (17 jul), cerrando la ventana en torno a <strong style="color:var(--green);">$61.34 (+3.4%)</strong>.
+      No alcanzó el objetivo de +10% ($65.27) pero fue una de las operaciones con catalizador duro, consistente con el patrón
+      que la Metodología v2 identificó como el factor que más separa ganadores de perdedores.
+    </p>
+  </div>
+
+  <div class="section">
+    <h3 style="color:var(--red);">📌 Notas — Trade #04: NKE (Jul 13-17, 2026)</h3>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+      Recomendación complementaria de perfil "buy the dip" (YTD -30.5%, sin catalizador de resultados esta semana). El precio
+      osciló entre $42.47 (mínimo, 14 jul) y $44.98 (máximo, 17 jul) sin acercarse ni al stop ($41.80) ni al target ($48.72),
+      cerrando la semana en <strong style="color:var(--red);">$43.71 (-1.3%)</strong>. Sin catalizador duro — confirma el patrón que
+      llevó a la Regla 1 de la Metodología v2.
+    </p>
+  </div>
+
+  <div class="section">
+    <h3 style="color:var(--green);">📌 Notas — Trade #05: VZ (Jul 17-28, 2026) — mejor resultado del proyecto</h3>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+      Entrada real ejecutada el viernes 17 jul a $43.64 (100 acciones). Earnings Q2 el viernes 24 jul generaron una reacción
+      fuertemente positiva: <strong style="color:var(--green);">+5.22% ese día</strong> (cierre $46.38), superando cómodo el
+      objetivo base ($44.24, ya tocado desde el 21-22 jul). La recomendación planteaba cerrar el lunes 27 jul (Regla 4, extensión
+      1 día hábil por momentum sano sin tocar stop), pero la venta real se ejecutó un día después, el <strong>martes 28 jul a
+      $47.92</strong> — a solo $0.08 (0.2%) del objetivo stretch ($48.00), capturando un tramo adicional de subida. Resultado
+      final: <strong style="color:var(--green);">+$428 (+9.81%)</strong> sobre el capital real desplegado ($4,364) — el mejor
+      trade del proyecto hasta la fecha.
+    </p>
+  </div>
+
+  <div class="section">
+    <h3 style="color:var(--accent);">📌 Notas — Trade #06: RDDT (Jul 27-31, 2026) — no comprada, en seguimiento</h3>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+      Entrada de referencia $179.23 (lunes 27 jul). Alejandro confirmó que <strong>no compró esta posición</strong> — se
+      sigue únicamente para medir si la metodología hubiese funcionado (Regla 5). Reporta resultados hoy jueves 30 de
+      julio después del cierre — la reacción se conocerá mañana viernes 31.
+    </p>
+  </div>
+
+  <div class="section">
+    <h3 style="color:var(--accent);">📌 Notas — Trade #07: PLTR (Jul 30 – Ago 6, 2026) — en curso</h3>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+      Compra real ejecutada el jueves 30 jul a <strong style="color:var(--green);">$121.92</strong> (45 acciones,
+      <strong style="color:var(--green);">$5,486.40</strong> reales) — levemente por encima del precio de cierre de
+      referencia usado en la tesis ($121.58). La recomendación original sugería reducir el tamaño a ~50% del estándar
+      del proyecto (~$2,500) por la alta dispersión histórica de reacciones (Regla 6) y el mercado general débil
+      (Regla 8); la ejecución real fue de tamaño completo/mayor ($5,486.40) — se documenta la desviación con
+      honestidad (Regla 5). Objetivo stretch $133.74 (+9.7% desde entrada real) y parcial $127.66 (+4.7%) se
+      mantienen sin cambios; el stop en $114.00 ahora representa -6.5% desde la entrada real. Earnings Q2 el lunes
+      3 de agosto (AMC) — reacción esperada el martes 4.
+    </p>
+  </div>
+
+  <div class="section">
+    <h3 style="color:var(--yellow);">🔎 Screening con Metodología v2 — Jueves 30 jul (semana Jul 30 – Ago 6)</h3>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+      Ver detalle completo del screening y la tabla comparativa de candidatos (PLTR, DASH, SHOP/UBER, MRNA, y los ya resueltos
+      QCOM/BE/STX/KLAC) en la página de Recomendación. Resumen: PLTR fue elegida por pasar Regla 11 con hit rate >50% (5/8,
+      +5.7% promedio) y por el mejor timing dentro de la ventana (reporta lunes, no miércoles). MRNA fue descartada pese a
+      tener un catalizador adicional atractivo (decisión FDA el 5 ago con adcomm unánime 9-0) porque su historial de
+      reacciones a resultados (2/8 positivas, -2.0% promedio) replica el mismo patrón de "sell the news" que descartó a HOOD
+      la semana pasada — la Regla 11 no se relaja solo porque hay un segundo catalizador atractivo.
+    </p>
+  </div>
+
+  <div class="section">
+    <h3>📅 Próximas Ventanas de Análisis</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;font-size:13px;">
+      <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border);">
+        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">RDDT — reacción a resultados</div>
+        <div style="color:var(--muted);font-size:12px;">Reporta hoy 30 jul AMC; reacción mañana viernes 31. Definirá si se cierra en la ventana original o si aplica la Regla 4 (extensión).</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border);">
+        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">PLTR — earnings lunes 3 ago</div>
+        <div style="color:var(--muted);font-size:12px;">Reacción esperada martes 4 ago. Movimiento implícito de opciones 9.6%-15.3% — el evento más relevante de la nueva ventana.</div>
+      </div>
+      <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border);">
+        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">MRNA — decisión FDA 5 ago</div>
+        <div style="color:var(--muted);font-size:12px;">PDUFA para mRNA-1010 (vacuna de gripe), tras voto unánime 9-0 del comité asesor el 18 jun. No se recomendó esta semana por el historial de earnings, pero vale la pena vigilar el desenlace regulatorio.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ Las ganancias y pérdidas aquí mostradas son estimaciones basadas en precios de cierre históricos (o intradía cuando se indica). El P&L real puede variar según precio de ejecución de la orden. Este historial es solo para referencia educativa. Invertir siempre conlleva riesgo de pérdida de capital.
+  </div>
+</div>
+
 <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('sw.js').catch(() => {});
-    });
-  }
+function showPage(id, btn) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  btn.classList.add('active');
+}
 </script>
 </body>
 </html>
