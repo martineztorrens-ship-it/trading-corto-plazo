@@ -119,248 +119,190 @@
 </head>
 <body>
 
+<div id="gate-overlay" style="display:none;position:fixed;inset:0;z-index:9999;background:#0a0e1a;align-items:center;justify-content:center;flex-direction:column;gap:16px;font-family:'Segoe UI',system-ui,sans-serif;">
+  <div style="font-size:20px;font-weight:700;color:#00d4ff;letter-spacing:.5px;">🔒 ACCIONES A CORTO PLAZO</div>
+  <input id="gate-pass" type="password" placeholder="Contraseña" autocomplete="off" style="padding:12px 16px;border-radius:8px;border:1px solid #2a3550;background:#111827;color:#e2e8f0;font-size:15px;width:240px;text-align:center;">
+  <button id="gate-btn" style="padding:10px 24px;border-radius:8px;border:none;background:#00d4ff;color:#0a0e1a;font-weight:700;cursor:pointer;font-size:14px;">Entrar</button>
+  <div id="gate-error" style="color:#ef4444;font-size:13px;height:16px;"></div>
+</div>
+<script>
+(function(){
+  var PASS = "Guada2014";
+  var KEY = "acp_auth_ok";
+  var overlay = document.getElementById('gate-overlay');
+  var authed = false;
+  try{ authed = sessionStorage.getItem(KEY) === "1"; }catch(e){}
+  if (!authed) {
+    overlay.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+  function unlock(){
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+    try{ sessionStorage.setItem(KEY, "1"); }catch(e){}
+  }
+  function check(){
+    var el = document.getElementById('gate-pass');
+    if (el.value === PASS) { unlock(); }
+    else {
+      document.getElementById('gate-error').textContent = 'Contraseña incorrecta';
+      el.value = '';
+      el.focus();
+    }
+  }
+  var btn = document.getElementById('gate-btn');
+  var pass = document.getElementById('gate-pass');
+  if (btn) btn.addEventListener('click', check);
+  if (pass) pass.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ check(); } });
+})();
+</script>
+
 <nav>
   <div class="nav-brand">📈 <span>ACCIONES A CORTO PLAZO</span></div>
   <div class="nav-tabs">
     <button class="tab-btn active" onclick="showPage('p1', this)">🎯 Recomendación</button>
     <button class="tab-btn" onclick="showPage('p2', this)">📋 Historial</button>
   </div>
-  <div class="nav-date">🗓️ Viernes, 7 de Agosto de 2026</div>
+  <div class="nav-date">🗓️ Lunes, 17 de Agosto de 2026</div>
 </nav>
 
 <!-- ════════════════════ PAGE 1: RECOMENDACIÓN ════════════════════ -->
 <div class="page active" id="p1">
 
+  <div style="background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.5);border-radius:10px;padding:16px 18px;font-size:13px;color:#fecaca;margin-bottom:20px;line-height:1.7;">
+    🚨 <strong>JD: el stop se perforó por gap el jueves 13 ago y la caída siguió toda la semana.</strong> Reportó Q2 con beat en EPS ($0.93 vs. $0.86) e ingresos, pero cayeron -2.9% interanual — primera caída en más de una década — y el mercado castigó duro: abrió $30.83 (gap bajo el stop $31.00), cerró esa sesión en $29.30 (-7.30%). Siguió cayendo: $29.06 (14 ago), y hoy lunes 17 ago <strong style="color:var(--red);">$28.515</strong> — RSI en 35.1 (sobreventa). En el backtest de la metodología esto se registra como pérdida por gap (igual que RDDT). Detalle completo abajo y en Historial.
+  </div>
+
+  <div style="background:rgba(100,116,139,.08);border:1px solid rgba(100,116,139,.35);border-radius:10px;padding:14px 18px;font-size:12px;color:#cbd5e1;margin-bottom:20px;line-height:1.6;">
+    ℹ️ <strong>Nota sobre tu posición real de JD:</strong> tu última confirmación (jueves 13 ago) fue que seguís sosteniendo las 100 acciones. Los números de "Cartera Real" de abajo asumen que no vendiste durante el fin de semana ni hoy — si vendiste o cambiaste algo, avisame para corregir la cifra.
+  </div>
+
   <div style="background:rgba(0,212,255,.08);border:1px solid rgba(0,212,255,.4);border-radius:10px;padding:16px 18px;font-size:13px;color:#7dd3fc;margin-bottom:20px;line-height:1.7;">
-    🎯 <strong>Recomendación de la semana: JD.com (JD).</strong> Reporta resultados Q2 el jueves 13 de agosto (antes de la apertura). Historial de reacciones de los últimos 9 trimestres: <strong style="color:var(--green);">6/9 positivas (66.7%)</strong>, promedio +1.97%, con los dos últimos trimestres claramente positivos (+6.12% y +7.24%). Entrada de referencia <strong style="color:var(--accent);">$32.81</strong> (cierre del jueves 6 ago). Conviction moderada, no alta — el RSI (73.4) ya está en sobrecompra antes del catalizador, así que el detalle completo de riesgos está más abajo.
+    ⏳ <strong>Sin recomendación nueva esta semana (17-21 ago) — Regla 10.</strong> Se corrió el checklist completo de la Metodología v2 sobre los principales candidatos con catalizador duro de la semana (earnings) y ninguno pasó limpio. Detalle del screening más abajo.
   </div>
 
-  <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.4);border-radius:10px;padding:16px 18px;font-size:13px;color:#86efac;margin-bottom:20px;line-height:1.7;">
-    ✅ <strong>Compra real confirmada — JD.</strong> Alejandro compró hoy viernes 7 de agosto <strong style="color:var(--green);">100 acciones de JD a $32.94</strong> ($3,294.00 reales desplegados). Posición abierta a la espera de earnings el jueves 13 de agosto antes de la apertura. Ya está reflejada en la sección "🧾 Cartera Real" de la pestaña Historial.
-  </div>
-
-  <div style="background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.25);border-radius:10px;padding:14px 18px;font-size:12px;color:#86efac;margin-bottom:20px;line-height:1.6;">
-    🏆 <strong>Recapitulando la semana pasada — PLTR cerrada con el mejor resultado real del proyecto:</strong> compra $121.92 (30 jul) → venta $159.27 (5 ago), <strong style="color:var(--green);">+$1,680.75 (+30.63%)</strong> en 6 días. VZ sigue siendo el segundo mejor trade real cerrado (+$428, +9.81%). Detalle completo en la pestaña Historial.
-  </div>
-
-  <div style="background:rgba(100,116,139,.08);border:1px solid rgba(100,116,139,.3);border-radius:10px;padding:14px 18px;font-size:12px;color:#cbd5e1;margin-bottom:20px;line-height:1.6;">
-    📋 <strong>Actualización de candidatos descartados — resultado real post-earnings:</strong> AMD reportó el martes 4 ago (AMC) con beat en EPS e ingresos, pero la acción cayó <strong style="color:var(--red);">-7.05%</strong> al día siguiente (sell-the-news) — confirma el promedio negativo que ya la había descartado esta semana pasada; el historial de 9 trimestres de AMD queda ahora en 4/9 positivas, promedio -2.27%. DKNG reportó hoy jueves 6 ago (AMC) con EPS que superó una vara muy baja pero <strong style="color:var(--red);">ingresos por debajo de lo esperado y una pérdida neta de $67.6M</strong> (vs. ganancia de $157.9M el año pasado) por mayores promociones — cotiza a la baja en after-hours. Ninguna de las dos fue recomendada esta semana, así que no afectan la Cartera Real.
-  </div>
-
-  <div class="rec-header">
-    <div class="rec-ticker">JD</div>
-    <div class="rec-company">JD.com, Inc. (ADR) · NASDAQ</div>
+  <div class="rec-header" style="border-color:var(--muted);">
+    <div class="rec-ticker" style="font-size:32px;color:var(--muted);">SIN OPERACIÓN NUEVA</div>
+    <div class="rec-company">Semana del 17 al 21 de agosto de 2026 — ningún candidato pasó el checklist de Metodología v2</div>
     <div class="rec-badges">
-      <span class="badge badge-buy">🎯 COMPRA — Entrada ref. $32.81</span>
-      <span class="badge badge-week">Jue 6 Ago – Jue 13 Ago 2026</span>
-      <span class="badge badge-hot">📊 Earnings Q2 — jueves 13 ago (antes de apertura)</span>
-      <span class="badge badge-hot" style="border-color:var(--yellow);color:var(--yellow);background:rgba(245,158,11,.1);">⚠️ Convicción moderada — RSI ya extendido (73.4)</span>
-    </div>
-    <div class="rec-meta">
-      <div class="meta-item">
-        <label>Entrada de Referencia</label>
-        <div class="value accent">$32.81</div>
-      </div>
-      <div class="meta-item">
-        <label>Objetivo Base (promedio histórico)</label>
-        <div class="value green">$33.46</div>
-      </div>
-      <div class="meta-item">
-        <label>Objetivo Stretch (+10%)</label>
-        <div class="value green">$36.09</div>
-      </div>
-      <div class="meta-item">
-        <label>Stop Sugerido</label>
-        <div class="value red">$31.00</div>
-      </div>
-      <div class="meta-item">
-        <label>Upside Stretch</label>
-        <div class="value gold">+10.0%</div>
-      </div>
-      <div class="meta-item">
-        <label>Tamaño Referencia</label>
-        <div class="value accent">$5,000 (reducido por Regla 7)</div>
-      </div>
+      <span class="badge" style="border-color:var(--muted);color:var(--muted);background:rgba(100,116,139,.1);">🔎 8 candidatos evaluados</span>
+      <span class="badge" style="border-color:var(--red);color:var(--red);background:rgba(239,68,68,.1);">❌ 0 pasaron el checklist</span>
+      <span class="badge badge-hot" style="border-color:var(--green);color:var(--green);background:rgba(16,185,129,.1);">✅ SPY/QQQ en máximos, tendencia favorable</span>
     </div>
   </div>
 
   <div class="price-grid">
+    <div class="price-card stop">
+      <div class="label">📉 JD — resultado backtest (pérdida por gap)</div>
+      <div class="amount" style="color:var(--red)">-6.0%</div>
+      <div class="sub">Entrada ref. $32.81 → salida ref. $30.83 (apertura 13 ago) · -$302 sobre $5,000</div>
+    </div>
     <div class="price-card entry">
-      <div class="label">📍 Entrada de Referencia</div>
-      <div class="amount" style="color:var(--accent)">$32.81</div>
-      <div class="sub">Cierre de hoy jueves 6 de agosto</div>
+      <div class="label">🧾 JD — posición real (sigue abierta, asumido)</div>
+      <div class="amount" style="color:var(--red)">-$442.50</div>
+      <div class="sub">100 acc. @ $32.94 → $28.515 hoy · -13.43% no realizado</div>
     </div>
     <div class="price-card target">
-      <div class="label">🎯 Objetivo Base / Stretch</div>
-      <div class="amount" style="color:var(--green)">$33.46 / $36.09</div>
-      <div class="sub">+1.97% (promedio 9 trim.) / +10.0% (stretch del proyecto)</div>
-    </div>
-    <div class="price-card stop">
-      <div class="label">🛑 Stop Sugerido</div>
-      <div class="amount" style="color:var(--red)">$31.00</div>
-      <div class="sub">-5.5% · debajo del soporte de fines de julio ($30.19-$30.95)</div>
+      <div class="label">📈 NVDA — posición real (externa al proyecto)</div>
+      <div class="amount" style="color:var(--green)">+$221.20</div>
+      <div class="sub">40 acc. @ $221.76 → $227.29 hoy · +2.49% no realizado</div>
     </div>
     <div class="price-card upside-card">
-      <div class="label">💰 Upside Stretch (5.000 USD ref.)</div>
-      <div class="amount" style="color:var(--gold)">+$500</div>
-      <div class="sub">Si se alcanza el +10% stretch dentro de la ventana</div>
+      <div class="label">💰 Cartera Real — neto a hoy</div>
+      <div class="amount" style="color:var(--green)">+$1,887.45</div>
+      <div class="sub">Realizado VZ+PLTR +$2,108.75 · no realizado JD+NVDA -$221.30</div>
     </div>
   </div>
 
   <div class="two-col">
     <div class="section">
-      <h3>Por qué JD — la tesis</h3>
+      <h3>Qué pasó con JD — resumen</h3>
       <p style="font-size:13px;line-height:1.7;color:#cbd5e1;">
-        JD.com reporta resultados de Q2 2026 el jueves 13 de agosto, antes de la apertura. De los últimos 9 trimestres,
-        <strong style="color:var(--green);">6 tuvieron reacción positiva (66.7%)</strong> el día hábil siguiente al
-        reporte, con un promedio de <strong style="color:var(--green);">+1.97%</strong>. Más relevante: los
-        <strong>dos trimestres más recientes fueron los más fuertes de la serie</strong> — marzo 2026
-        <strong style="color:var(--green);">+6.12%</strong> y mayo 2026 <strong style="color:var(--green);">+7.24%</strong> —
-        lo que sugiere un momentum reciente mejor que el promedio histórico completo.
+        JD reportó el jueves 13 ago antes de la apertura: EPS $0.93 vs. $0.86 esperado (beat) e ingresos por encima
+        del estimado, pero los ingresos totales cayeron <strong style="color:var(--red);">-2.9% interanual</strong> —
+        la primera caída interanual en más de una década para la empresa. Un análisis adicional marcó que el 91% de
+        la mejora del ingreso operativo vino de recortar pérdidas en negocios nuevos (delivery de comida), no de
+        crecimiento orgánico — cuestionando la calidad de la mejora más allá del titular de "beat".
       </p>
       <br>
       <p style="font-size:13px;line-height:1.7;color:#cbd5e1;">
-        El consenso de analistas es <strong style="color:var(--green);">"Buy"</strong> (32 compra, 13 mantener, 1 venta),
-        con precio objetivo consenso de $34.25 y mediana de $36 — prácticamente en línea con el objetivo stretch del
-        proyecto. La narrativa de mercado viene acompañando: Barron's y Seeking Alpha destacaron esta semana señales
-        técnicas alcistas en JD y en el sector de tech chino en general (acumulación institucional, EMA de 30 semanas
-        ascendente, máximos y mínimos crecientes).
+        El precio abrió esa mañana en $30.83, ya por debajo del stop ($31.00) por gap, y cerró en $29.30 (-7.30%). La
+        baja continuó los días siguientes sin rebote: $29.06 (14 ago) y $28.515 hoy lunes 17 ago (RSI 35.1,
+        sobreventa). En el backtest de la metodología esta recomendación se marca como <strong style="color:var(--red);">pérdida por gap</strong>,
+        el mismo criterio usado con RDDT en julio — salida de referencia en la apertura del día del gap.
       </p>
     </div>
 
     <div class="section">
-      <h3>Riesgos y cautelas — por qué la convicción es moderada</h3>
-      <ul class="catalyst-list">
+      <h3>Por qué no hay recomendación nueva (Regla 10)</h3>
+      <p style="font-size:13px;line-height:1.7;color:#cbd5e1;">
+        Esta semana reportan varias retailers grandes (HD, TGT, LOW, TJX, EL, WMT, ROST) y Alibaba (BABA) — todos con
+        catalizador duro (Regla 1). Pero ninguno pasó limpio el resto del checklist:
+      </p>
+      <ul class="catalyst-list" style="margin-top:10px;">
+        <li>
+          <span class="cat-icon">📏</span>
+          <div><strong>HD, LOW, TJX, WMT, ROST — descartados por Regla 2</strong><br><span style="color:var(--muted);font-size:12px;">Blue chips de bajo beta, mismo perfil que descartó a CSCO/AMAT antes — el movimiento típico post-earnings no alcanza para +10% en la ventana.</span></div>
+        </li>
+        <li>
+          <span class="cat-icon">📉</span>
+          <div><strong>BABA — descartada por Regla 11 (tendencia reciente)</strong><br><span style="color:var(--muted);font-size:12px;">6/9 reacciones históricas positivas, pero las últimas 2 (mar-26 -1.99%, may-26 -3.22%) fueron negativas pese a resultados mixtos — tendencia empeorando, no mejorando. Además, riesgo de sector correlacionado con lo que le acaba de pasar a JD.</span></div>
+        </li>
         <li>
           <span class="cat-icon">⚠️</span>
-          <div><strong>RSI ya en sobrecompra antes del catalizador</strong><br><span style="color:var(--muted);font-size:12px;">RSI(14) = 73.4, y el precio cotiza +6.2% por encima de su propia media móvil de 20 días ($30.88). La acción ya subió de ~$25 a ~$33 en siete semanas — parte del movimiento esperado puede estar ya descontado.</span></div>
+          <div><strong>EL — descartada por Regla 6 (dispersión extrema)</strong><br><span style="color:var(--muted);font-size:12px;">En feb-2026 cayó -19.2% el mismo día del reporte pese a superar estimados — la reacción más violenta vista en el proyecto. Demasiado binaria para fijar un objetivo base confiable.</span></div>
         </li>
         <li>
           <span class="cat-icon">📊</span>
-          <div><strong>Dispersión histórica moderada-alta</strong><br><span style="color:var(--muted);font-size:12px;">Reacciones van de -4.56% a +8.48% (desvío ~4.9pp) — no es un patrón tan limpio como el de PLTR la semana pasada. Por Regla 6, el objetivo base (+1.97%) se trata con cautela, no como un piso garantizado.</span></div>
-        </li>
-        <li>
-          <span class="cat-icon">🌏</span>
-          <div><strong>Riesgo regulatorio/geopolítico de ADR china</strong><br><span style="color:var(--muted);font-size:12px;">Como todo ADR chino, JD carga riesgo de titulares regulatorios (China o EE.UU.) que no están en el patrón histórico de reacciones a resultados.</span></div>
-        </li>
-        <li>
-          <span class="cat-icon">📐</span>
-          <div><strong>Relación riesgo/beneficio del objetivo base es floja</strong><br><span style="color:var(--muted);font-size:12px;">+1.97% de objetivo base vs. -5.5% de stop — por eso el tamaño de referencia debería ser menor al de semanas anteriores (Regla 7), y el foco realista está en el escenario stretch, no en el base.</span></div>
+          <div><strong>TGT — descartada por RSI + patrón "beat pero cae"</strong><br><span style="color:var(--muted);font-size:12px;">RSI ya en 69-74 (sobrecompra) antes del reporte del miércoles. Las últimas 2 de 3 reacciones fueron negativas pese a superar estimados — el mismo patrón que castigó a JD esta semana. Demasiado parecido al riesgo que ya golpeó la cartera real.</span></div>
         </li>
       </ul>
     </div>
   </div>
 
-  <!-- HISTORIAL DE REACCIONES A RESULTADOS (Regla 11 — filtro principal) -->
+  <!-- SCREENING DE LA SEMANA -->
   <div class="section">
-    <h3>Historial de Reacciones a Resultados — Filtro Principal (Regla 11)</h3>
+    <h3>Candidatos Evaluados Esta Semana (17-21 Ago) — Ninguno Pasó el Checklist</h3>
     <table class="val-table">
       <thead>
         <tr>
-          <th>Fecha Reporte</th>
-          <th>Reacción Precio (cierre reporte→cierre siguiente)</th>
-          <th>Resultado</th>
+          <th>Ticker</th>
+          <th>Reporta</th>
+          <th>Motivo de descarte</th>
         </tr>
       </thead>
       <tbody>
-        <tr><td>16 may 2024</td><td class="check-yes">+2.92%</td><td class="check-yes">✅ Positiva</td></tr>
-        <tr><td>15 ago 2024</td><td class="check-yes" style="font-size:15px;">+8.48%</td><td class="check-yes">✅ Positiva</td></tr>
-        <tr><td>14 nov 2024</td><td class="check-yes">+4.95%</td><td class="check-yes">✅ Positiva</td></tr>
-        <tr><td>06 mar 2025</td><td class="check-no">-3.71%</td><td class="check-no">❌ Negativa</td></tr>
-        <tr><td>13 may 2025</td><td class="check-no">-4.08%</td><td class="check-no">❌ Negativa</td></tr>
-        <tr><td>14 ago 2025</td><td class="check-yes">+0.38%</td><td class="check-yes">✅ Positiva</td></tr>
-        <tr><td>13 nov 2025</td><td class="check-no">-4.56%</td><td class="check-no">❌ Negativa</td></tr>
-        <tr><td>05 mar 2026</td><td class="check-yes">+6.12%</td><td class="check-yes">✅ Positiva</td></tr>
-        <tr><td>12 may 2026</td><td class="check-yes" style="font-size:15px;">+7.24%</td><td class="check-yes">✅ Positiva</td></tr>
+        <tr><td>HD</td><td>Mar 18 ago</td><td class="check-no">Regla 2 — bajo beta</td></tr>
+        <tr><td>TGT</td><td>Mié 19 ago</td><td class="check-no">RSI sobrecomprado + patrón "beat pero cae"</td></tr>
+        <tr><td>LOW</td><td>Mié 19 ago</td><td class="check-no">Regla 2 — bajo beta</td></tr>
+        <tr><td>TJX</td><td>Mié 19 ago</td><td class="check-no">Regla 2 — bajo beta</td></tr>
+        <tr><td>EL</td><td>Mié 19 ago</td><td class="check-no">Regla 6 — dispersión extrema (-19.2% feb-26)</td></tr>
+        <tr><td>WMT</td><td>Jue 20 ago</td><td class="check-no">Regla 2 — bajo beta</td></tr>
+        <tr><td>ROST</td><td>Jue 20 ago</td><td class="check-no">Regla 2 — bajo beta</td></tr>
+        <tr><td>BABA</td><td>Jue 20 ago</td><td class="check-no">Regla 11 — últimos 2 trimestres negativos + riesgo sector correlacionado con JD</td></tr>
       </tbody>
     </table>
     <p style="margin-top:12px;font-size:12px;color:var(--yellow);">
-      6 de 9 positivas (66.7%), promedio +1.97%. Los últimos dos trimestres (mar-26 y may-26) fueron los más fuertes
-      de toda la serie — señal de aceleración reciente, no de deterioro. Validación secundaria de 3 años misma-semana-ISO
-      (semana del 13 ago): 2024 (semana completa +12.35%, incluye el reporte de esa fecha) y 2025 (+1.67%) — ambas
-      positivas, sin bandera roja; no hay dato de 2023 disponible en el conector.
+      "No operar" es un resultado válido del checklist (Regla 10) — no se fuerza una recomendación solo porque se
+      disparó EJECUTAR. Después de la pérdida de JD, priorizar candidatos limpios en vez de forzar una nueva entrada
+      es la lectura más honesta de la semana.
     </p>
-  </div>
-
-  <div class="two-col">
-    <div class="section">
-      <h3>Niveles Técnicos</h3>
-      <div style="font-size:13px;">
-        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
-          <span style="color:var(--muted)">Precio actual (cierre 6 ago)</span><span style="color:var(--accent);font-weight:700;">$32.81</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
-          <span style="color:var(--muted)">RSI (14d)</span><span style="color:var(--yellow);font-weight:700;">73.4 (sobrecompra)</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
-          <span style="color:var(--muted)">SMA 20 días</span><span style="color:var(--muted);font-weight:700;">$30.88 (precio +6.2% arriba)</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
-          <span style="color:var(--muted)">Soporte cercano</span><span style="color:var(--muted);font-weight:700;">$30.19 – $30.95 (24-27 jul)</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
-          <span style="color:var(--muted)">Precio objetivo consenso analistas</span><span style="color:var(--green);font-weight:700;">$34.25 (mediana $36.00)</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:8px 0;">
-          <span style="color:var(--muted)">SPY / QQQ vs. SMA20 (Regla 8)</span><span style="color:var(--green);font-weight:700;">Ambos por encima — tendencia favorable</span>
-        </div>
-      </div>
-      <div style="margin-top:14px;padding:10px;background:rgba(245,158,11,.08);border-radius:8px;border:1px solid rgba(245,158,11,.2);font-size:12px;color:#fde68a;">
-        ⚠️ Con el RSI ya en 73.4, una alternativa más conservadora es esperar un enfriamiento hacia $31.50-$32.00 antes
-        de entrar completo, o entrar con la mitad del tamaño ahora y completar en una baja técnica.
-      </div>
-    </div>
-
-    <div class="section">
-      <h3>Plan de Ejecución</h3>
-      <div class="exec-plan">
-        <div class="exec-step">
-          <div class="step-circle entry-c">1</div>
-          <div class="step-content">
-            <div class="step-title">ENTRADA — Real: viernes 7 de agosto ✅</div>
-            <div class="step-desc">Comprada: 100 acciones a $32.94 ($3,294.00), tamaño reducido frente a semanas anteriores (Regla 7) dado el riesgo/beneficio flojo del objetivo base.</div>
-          </div>
-        </div>
-        <div class="exec-step">
-          <div class="step-circle hold-c">2</div>
-          <div class="step-content">
-            <div class="step-title">SEGUIMIENTO — Del 7 al 12 de agosto</div>
-            <div class="step-desc">Vigilar si el RSI se enfría antes del reporte. Un retroceso hacia el soporte $30.19-$30.95 sin perder el stop sería saludable, no una señal de alarma.</div>
-          </div>
-        </div>
-        <div class="exec-step">
-          <div class="step-circle exit-c">3</div>
-          <div class="step-content">
-            <div class="step-title">RESULTADOS — Jueves 13 de agosto (antes de apertura)</div>
-            <div class="step-desc">Si la reacción confirma el patrón de los últimos dos trimestres (fuerte y positiva), tomar una porción en el objetivo base y dejar correr el resto hacia el stretch con stop en breakeven.</div>
-          </div>
-        </div>
-        <div class="exec-step">
-          <div class="step-circle stop-c">4</div>
-          <div class="step-content">
-            <div class="step-title">VENTANA — Cierra jueves 13 / viernes 14 de agosto</div>
-            <div class="step-desc">Avisame la reacción real y qué decidís (vender/mantener) para reflejarlo en la Cartera Real, igual que con PLTR.</div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="section">
-    <h3>Screening con Metodología v2 — Semana 6-13 de agosto (candidatos descartados)</h3>
-    <p style="font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:10px;">
-      Se evaluaron todos los candidatos de mayor perfil con catalizador duro dentro de la ventana. JD fue la única que
-      pasó limpio el checklist de la Regla 11 (hit rate >60% y tendencia reciente positiva, no negativa).
-    </p>
-    <table class="val-table">
-      <thead><tr><th>Ticker</th><th>Reporta</th><th>Historial de reacciones (9 trim.)</th><th>Decisión</th></tr></thead>
-      <tbody>
-        <tr><td class="ticker-cell" style="font-size:13px;">SMCI</td><td style="font-size:12px;color:var(--muted);">Mar 11 ago (AMC)</td><td style="font-size:12px;color:var(--muted);">Solo 3/9 positivas (33%), promedio <strong style="color:var(--red);">-3.63%</strong>, dispersión extrema (-20% a +25%)</td><td style="font-size:12px;color:var(--muted);"><span class="check-no">Descartada — Regla 11 + Regla 6.</span> Mayoría de reacciones negativas y muy dispersas — alta incertidumbre binaria, no un patrón confiable.</td></tr>
-        <tr><td class="ticker-cell" style="font-size:13px;">TTWO</td><td style="font-size:12px;color:var(--muted);">Vie 7 ago (AMC)</td><td style="font-size:12px;color:var(--muted);">4/9 positivas (44%), promedio ~0%, pero <strong style="color:var(--red);">últimos 4 trimestres seguidos negativos</strong> pese a superar estimados cada vez</td><td style="font-size:12px;color:var(--muted);"><span class="check-warn">Descartada — Regla 11 (tendencia).</span> Patrón "sell the news" reciente y consistente — el mercado ya no premia el beat.</td></tr>
-        <tr><td class="ticker-cell" style="font-size:13px;">CAVA</td><td style="font-size:12px;color:var(--muted);">Mar 11 ago (AMC)</td><td style="font-size:12px;color:var(--muted);">4/8 positivas (50%), dispersión muy alta (-16.6% a +26.4%)</td><td style="font-size:12px;color:var(--muted);"><span class="check-warn">Descartada por Regla 6.</span> Sin hit-rate claro ni objetivo base confiable — igual perfil de "alta incertidumbre" que RDDT.</td></tr>
-        <tr><td class="ticker-cell" style="font-size:13px;">CSCO / AMAT</td><td style="font-size:12px;color:var(--muted);">Mié 12 / Jue 13 ago</td><td style="font-size:12px;color:var(--muted);">Blue chips de bajo beta</td><td style="font-size:12px;color:var(--muted);"><span class="check-warn">Descartadas — Regla 2.</span> Volatilidad histórica insuficiente para un objetivo de +10% en 5 días.</td></tr>
-      </tbody>
-    </table>
+    <h3>Contexto de Mercado (Regla 8)</h3>
+    <div style="font-size:13px;">
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
+        <span style="color:var(--muted)">SPY</span><span style="color:var(--green);font-weight:700;">$775.50 vs. SMA20 ~$758 — arriba, tendencia favorable</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;">
+        <span style="color:var(--muted)">QQQ</span><span style="color:var(--green);font-weight:700;">$732.89 — cerca de máximos recientes, tendencia favorable</span>
+      </div>
+    </div>
+    <div style="margin-top:14px;padding:10px;background:rgba(16,185,129,.08);border-radius:8px;border:1px solid rgba(16,185,129,.2);font-size:12px;color:#86efac;">
+      ✅ El mercado general sigue fuerte — la ausencia de recomendación esta semana es por falta de un candidato
+      individual limpio (Reglas 2/6/11), no por un mercado en contra (Regla 8).
+    </div>
   </div>
 
   <div class="disclaimer">
@@ -386,7 +328,7 @@
 
   <div class="stats-row">
     <div class="stat-card">
-      <div class="sv" style="color:var(--text);">7</div>
+      <div class="sv" style="color:var(--text);">8</div>
       <div class="sl">Total Trades Cerrados</div>
     </div>
     <div class="stat-card win-c">
@@ -398,20 +340,20 @@
       <div class="sl">Parciales</div>
     </div>
     <div class="stat-card loss-c">
-      <div class="sv" style="color:var(--red);">3</div>
+      <div class="sv" style="color:var(--red);">4</div>
       <div class="sl">Pérdidas</div>
     </div>
     <div class="stat-card total-c">
-      <div class="sv" style="color:var(--accent);">1</div>
-      <div class="sl">En Curso (JD)</div>
+      <div class="sv" style="color:var(--accent);">0</div>
+      <div class="sl">En Curso</div>
     </div>
     <div class="stat-card">
-      <div class="sv" style="color:var(--green);">+$1,364</div>
-      <div class="sl">P&L Total Metodología (7 cerrados)</div>
+      <div class="sv" style="color:var(--green);">+$1,062</div>
+      <div class="sl">P&L Total Metodología (8 cerrados)</div>
     </div>
     <div class="stat-card">
-      <div class="sv" style="color:var(--green);">+3.97%</div>
-      <div class="sl">Retorno Blended Metodología ($5K/trade, s/$34,364)</div>
+      <div class="sv" style="color:var(--green);">+2.66%</div>
+      <div class="sl">Retorno Blended Metodología ($5K/trade, s/$40,000)</div>
     </div>
   </div>
 
@@ -570,8 +512,8 @@
             </td>
           </tr>
 
-          <!-- TRADE 8: JD (EN CURSO) -->
-          <tr style="background:rgba(0,212,255,.06);">
+          <!-- TRADE 8: JD (RESUELTO — PÉRDIDA POR GAP) -->
+          <tr style="background:rgba(239,68,68,.06);">
             <td style="color:var(--muted);font-size:12px;">08</td>
             <td style="font-size:12px;">Ago 6 – Ago 13 2026</td>
             <td class="ticker-cell">JD</td>
@@ -581,19 +523,19 @@
             <td style="color:var(--red);">$31.00</td>
             <td style="color:var(--gold);font-weight:700;">+10.0%</td>
             <td style="font-size:12px;">Jue 6 Ago<br><span style="color:var(--accent);">$32.81</span></td>
-            <td style="font-size:12px;color:var(--muted);">Pendiente</td>
-            <td><span class="status-badge status-abierta">⏳ EN CURSO</span></td>
+            <td style="font-size:12px;">Jue 13 Ago<br><span style="color:var(--red);">$30.83 (gap)</span></td>
+            <td><span class="status-badge status-perdida">PÉRDIDA (gap)</span></td>
             <td>
-              <div class="pl-open">—</div>
-              <div style="font-size:11px;color:var(--muted);">Reporta 13 ago, antes de apertura</div>
+              <div class="pl-neg">-$302</div>
+              <div style="font-size:11px;color:var(--muted);">-6.03% · stop atravesado por gap en la apertura</div>
             </td>
           </tr>
 
         </tbody>
         <tfoot>
           <tr style="background:rgba(0,212,255,.05);border-top:2px solid var(--accent);">
-            <td colspan="11" style="font-weight:800;font-size:13px;color:var(--accent);text-align:right;padding:12px 14px;">TOTAL GENERAL — 7 recomendaciones cerradas (JD #08 en curso, no incluida)</td>
-            <td style="padding:12px 14px;"><div class="pl-pos" style="font-size:15px;">+$1,364</div><div style="font-size:11px;color:var(--muted);">+3.97% blended s/$34,364 · metodología, no es la cartera real</div></td>
+            <td colspan="11" style="font-weight:800;font-size:13px;color:var(--accent);text-align:right;padding:12px 14px;">TOTAL GENERAL — 8 recomendaciones cerradas</td>
+            <td style="padding:12px 14px;"><div class="pl-pos" style="font-size:15px;">+$1,062</div><div style="font-size:11px;color:var(--muted);">+2.66% blended s/$40,000 · metodología, no es la cartera real</div></td>
           </tr>
         </tfoot>
       </table>
@@ -617,7 +559,7 @@
             <th>Origen</th>
             <th>Compra</th>
             <th>Capital Real</th>
-            <th>Precio Actual (7 ago)</th>
+            <th>Precio Actual (17 ago)</th>
             <th>Venta</th>
             <th>Estado</th>
             <th>P&L Real</th>
@@ -639,10 +581,10 @@
             <td class="company-cell" style="font-size:11px;color:var(--muted);">Posición personal (sin relación a recomendación)</td>
             <td style="font-size:12px;">Mié 3 Jun<br><span style="color:var(--accent);">$221.76 × 40 acc.</span></td>
             <td style="font-weight:600;">$8,870.40</td>
-            <td style="font-weight:600;">$224.28</td>
+            <td style="font-weight:600;color:var(--green);">$227.29</td>
             <td style="font-size:12px;color:var(--muted);">Abierta</td>
             <td><span class="status-badge status-abierta">⏳ ABIERTA</span></td>
-            <td><div class="pl-pos">+$100.60</div><div style="font-size:11px;color:var(--muted);">+1.13% no realizado</div></td>
+            <td><div class="pl-pos">+$221.20</div><div style="font-size:11px;color:var(--muted);">+2.49% no realizado</div></td>
           </tr>
           <tr style="background:rgba(16,185,129,.08);">
             <td class="ticker-cell">PLTR</td>
@@ -654,15 +596,15 @@
             <td><span class="status-badge status-ganancia">CERRADA</span></td>
             <td><div class="pl-pos">+$1,680.75</div><div style="font-size:11px;color:var(--muted);">+30.63% realizado</div></td>
           </tr>
-          <tr style="background:rgba(0,212,255,.06);">
+          <tr style="background:rgba(239,68,68,.1);">
             <td class="ticker-cell">JD</td>
             <td class="company-cell" style="font-size:11px;color:var(--muted);">Recomendación #08</td>
             <td style="font-size:12px;">Vie 7 Ago<br><span style="color:var(--accent);">$32.94 × 100 acc.</span></td>
             <td style="font-weight:600;">$3,294.00</td>
-            <td style="font-weight:600;">$32.93</td>
-            <td style="font-size:12px;color:var(--muted);">Abierta</td>
-            <td><span class="status-badge status-abierta">⏳ ABIERTA</span></td>
-            <td><div class="pl-neg">-$1.42</div><div style="font-size:11px;color:var(--muted);">-0.04% no realizado (intradía) · earnings 13 ago</div></td>
+            <td style="font-weight:600;color:var(--red);">$28.515</td>
+            <td style="font-size:12px;color:var(--muted);">Abierta*</td>
+            <td><span class="status-badge status-abierta" style="border-color:var(--red);color:var(--red);">🚨 -13.4%, stop ya perforado</span></td>
+            <td><div class="pl-neg">-$442.50</div><div style="font-size:11px;color:var(--muted);">-13.43% no realizado</div></td>
           </tr>
         </tbody>
         <tfoot>
@@ -672,19 +614,22 @@
           </tr>
           <tr style="background:var(--bg3);">
             <td colspan="7" style="font-weight:700;font-size:12px;color:var(--text);text-align:right;padding:12px 14px;">TOTAL — No realizado (NVDA + JD, abiertas)</td>
-            <td style="padding:12px 14px;"><div class="pl-pos">+$99.18</div><div style="font-size:11px;color:var(--muted);">NVDA +$100.60 · JD -$1.42</div></td>
+            <td style="padding:12px 14px;"><div class="pl-neg">-$221.30</div><div style="font-size:11px;color:var(--muted);">NVDA +$221.20 · JD -$442.50</div></td>
           </tr>
           <tr style="background:rgba(16,185,129,.08);border-top:2px solid var(--green);">
-            <td colspan="7" style="font-weight:800;font-size:13px;color:var(--green);text-align:right;padding:12px 14px;">TOTAL GENERAL CARTERA REAL — 7 ago</td>
-            <td style="padding:12px 14px;"><div class="pl-pos" style="font-size:15px;">+$2,207.93</div><div style="font-size:11px;color:var(--muted);">neto a hoy</div></td>
+            <td colspan="7" style="font-weight:800;font-size:13px;color:var(--green);text-align:right;padding:12px 14px;">TOTAL GENERAL CARTERA REAL — 17 ago</td>
+            <td style="padding:12px 14px;"><div class="pl-pos" style="font-size:15px;">+$1,887.45</div><div style="font-size:11px;color:var(--muted);">neto a hoy</div></td>
           </tr>
         </tfoot>
       </table>
     </div>
     <p style="font-size:11px;color:var(--muted);margin-top:12px;line-height:1.6;">
       Capital real actualmente en posiciones abiertas: $8,870.40 (NVDA) + $3,294.00 (JD) = $12,164.40. PLTR y VZ ya
-      están cerradas — sus ganancias quedaron realizadas. El precio de JD ($32.93) es intradía del viernes 7 ago, no
-      cierre — el P&L no realizado puede moverse hasta el cierre y sobre todo tras earnings del 13 ago.
+      están cerradas — sus ganancias quedaron realizadas. *JD: precio a cierre del lunes 17 ago ($28.515), asumiendo
+      que la posición sigue abierta según tu última confirmación (jueves 13 ago) — si vendiste durante estos días,
+      avisame para corregir el número. NVDA repuntó junto con el mercado general esta semana; JD siguió cayendo tras
+      el reporte del jueves y ya está muy por debajo del stop original ($31.00), sin haberse podido ejecutar ahí por
+      el gap de apertura.
     </p>
   </div>
 
@@ -772,7 +717,7 @@
   </div>
 
   <div class="section">
-    <h3 style="color:var(--accent);">📌 Notas — Trade #08: JD (Ago 6 – Ago 13, 2026) — EN CURSO, compra real confirmada</h3>
+    <h3 style="color:var(--red);">📌 Notas — Trade #08: JD (Ago 6 – Ago 13, 2026) — PÉRDIDA por gap, posición real sigue abierta</h3>
     <p style="color:var(--muted);font-size:13px;line-height:1.7;">
       Entrada de referencia $32.81 (cierre jueves 6 ago). Alejandro <strong style="color:var(--green);">compró de
       verdad 100 acciones el viernes 7 de agosto a $32.94</strong> ($3,294.00 reales) — ver "🧾 Cartera Real". JD
@@ -783,10 +728,51 @@
       (+10%), stop sugerido $31.00 (-5.5%). A la espera de la reacción a resultados del 13 de agosto para decidir
       venta parcial en el objetivo base y dejar correr el resto hacia el stretch.
     </p>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-top:12px;padding-top:12px;border-top:1px solid rgba(42,53,80,.4);">
+      <strong style="color:var(--accent);">Actualización martes 11 ago:</strong> JD cerró en <strong style="color:var(--red);">$31.92 (-4.6% en el día)</strong>,
+      en medio de una baja generalizada de acciones chinas/tech por el repunte del petróleo (tensión geopolítica por
+      reportes de ataques a petroleros) y nervios de mercado sobre una posible burbuja de IA — no hay noticia
+      específica de JD detrás de la baja de ese día. Se sumó además un overhang regulatorio: la UE está revisando la
+      adquisición de Ceconomy por parte de JD. El lado positivo: el RSI(14) se enfrió de 73.4 a 57.8, exactamente el
+      tipo de retroceso saludable hacia el soporte técnico que se anticipaba, sin perder el stop ($31.00). No
+      realizado ese día: -$102.00 (-3.10%) sobre el capital real ($3,294.00).
+    </p>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-top:12px;padding-top:12px;border-top:1px solid rgba(239,68,68,.3);">
+      <strong style="color:var(--red);">Actualización miércoles 12 ago — alerta de stop:</strong> JD siguió cayendo a
+      <strong style="color:var(--red);">$31.16 intradía (-2.4% vs. cierre de ayer)</strong>, a solo $0.16 (0.5%) del
+      stop de $31.00 — el mínimo del día tocó $31.01, un centavo por encima. A diferencia de ayer, la baja de hoy
+      <strong>no parece macro</strong>: SPY y QQQ suben, y la debilidad en el sector chino hoy se explica más por
+      Alibaba (demandas de accionistas por securities-fraud) que por algo sistémico — la caída de JD parece más bien
+      toma de utilidades / de-risking de cara al reporte de mañana. El RSI(14) siguió enfriándose a
+      <strong style="color:var(--green);">51.1</strong>, zona neutral. Movimiento implícito de opciones actualizado:
+      el straddle semanal (vencimiento 14 ago) pricea ±6%, Barchart estima ±5.1% — rango 5-6% coherente con lo
+      esperado. No realizado a hoy: <strong style="color:var(--red);">-$178.00 (-5.40%)</strong> sobre el capital real
+      ($3,294.00). JD reporta MAÑANA, jueves 13 de agosto, antes de la apertura — recordatorio automático programado
+      para las 7:00 AM (GMT-6). Sin cambios al plan (el stop sigue en $31.00), pero es la posición más ajustada al
+      stop antes de un catalizador que ha tenido el proyecto.
+    </p>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-top:12px;padding-top:12px;border-top:1px solid rgba(239,68,68,.4);">
+      <strong style="color:var(--red);">Resolución jueves 13 ago — PÉRDIDA por gap:</strong> JD reportó Q2 antes de la
+      apertura con beat en EPS ($0.93 vs. $0.86) e ingresos, pero los ingresos totales cayeron -2.9% interanual —
+      primera caída interanual en más de una década — y un análisis post-reporte señaló que el 91% de la mejora del
+      ingreso operativo vino de recortar pérdidas en negocios nuevos, no de crecimiento orgánico. El precio abrió en
+      $30.83 (gap por debajo del stop $31.00), tocó un mínimo de $28.86 y cerró en $29.30 (-7.30% en el día) — mismo
+      patrón que RDDT en julio. En el backtest de la metodología se marca <strong style="color:var(--red);">PÉRDIDA
+      (gap)</strong>: salida de referencia $30.83, retorno -6.03% (-$302 sobre $5,000).
+    </p>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-top:12px;padding-top:12px;border-top:1px solid rgba(239,68,68,.3);">
+      <strong style="color:var(--red);">Seguimiento 14-17 ago — sin rebote:</strong> la caída no se revirtió los días
+      siguientes: $29.06 (viernes 14 ago), $28.515 (lunes 17 ago). RSI(14) en 35.1, sobreventa, sin señales de
+      estabilización aún. Alejandro confirmó el jueves 13 ago que <strong style="color:var(--accent);">sigue
+      sosteniendo las 100 acciones reales</strong> — no realizado a hoy lunes 17 ago:
+      <strong style="color:var(--red);">-$442.50 (-13.43%)</strong> sobre el capital real ($3,294.00), muy por debajo
+      del stop planeado (-5.9%) que no se pudo ejecutar por el gap. Si esto cambió durante el fin de semana, avisame
+      para corregir la Cartera Real.
+    </p>
   </div>
 
   <div class="section">
-    <h3 style="color:var(--yellow);">🔎 Screening con Metodología v2 — Semana 6-13 ago (candidatos descartados)</h3>
+    <h3 style="color:var(--yellow);">🔎 Screening con Metodología v2 — Semana 6-13 ago (candidatos descartados, histórico)</h3>
     <p style="color:var(--muted);font-size:13px;line-height:1.7;">
       Se evaluaron SMCI (11 ago), TTWO (7 ago), CAVA (11 ago), CSCO (12 ago) y AMAT (13 ago) como candidatos con
       catalizador duro en la ventana. SMCI (3/9 positivas, 33%, promedio -3.63%, dispersión extrema -20% a +25%) y
@@ -794,7 +780,23 @@
       confiable. TTWO (4/9 positivas, pero últimos 4 trimestres seguidos negativos pese a superar estimados —
       patrón "sell the news" consistente) falla por tendencia reciente (Regla 11). CSCO y AMAT son blue chips de bajo
       beta que no pasan el filtro de volatilidad de la Regla 2. JD fue la única candidata que pasó limpio el
-      checklist completo.
+      checklist completo esa semana — resultado final: pérdida por gap, ver Trade #08 arriba.
+    </p>
+  </div>
+
+  <div class="section">
+    <h3 style="color:var(--yellow);">🔎 Screening con Metodología v2 — Semana 17-21 ago (sin recomendación, Regla 10)</h3>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;">
+      Semana cargada de earnings de retail: HD (18 ago), TGT/LOW/TJX/EL (19 ago), WMT/ROST/BABA (20 ago). HD, LOW,
+      TJX, WMT y ROST son blue chips de bajo beta — mismo perfil que descartó a CSCO/AMAT (Regla 2). EL tiene una
+      reacción histórica de -19.2% en un solo día (feb-2026, pese a superar estimados) — dispersión demasiado
+      extrema para fijar un objetivo base confiable (Regla 6). BABA tiene 6/9 reacciones históricas positivas, pero
+      las últimas 2 (mar-26 -1.99%, may-26 -3.22%) fueron negativas — tendencia reciente empeorando (Regla 11),
+      además de riesgo de sector correlacionado justo después de la pérdida de JD (mismo sector: e-commerce/tech
+      chino). TGT tiene RSI ya en zona de sobrecompra (69-74) antes de su reporte del miércoles, y 2 de sus últimas 3
+      reacciones fueron negativas pese a superar estimados — el mismo patrón "beat pero cae" que golpeó a JD esta
+      semana. Ningún candidato pasó limpio el checklist completo — <strong style="color:var(--accent);">no operar
+      esta semana (Regla 10)</strong>, resultado válido tras la pérdida de JD en vez de forzar una entrada nueva.
     </p>
   </div>
 
@@ -815,17 +817,17 @@
   <div class="section">
     <h3>📅 Próximas Ventanas de Análisis</h3>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;font-size:13px;">
-      <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border);">
-        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">JD — earnings jueves 13 ago (antes de apertura)</div>
-        <div style="color:var(--muted);font-size:12px;">Recomendación activa de esta semana. Seguimiento en la pestaña Recomendación.</div>
+      <div style="background:rgba(239,68,68,.08);border-radius:10px;padding:14px;border:1px solid rgba(239,68,68,.4);">
+        <div style="color:var(--red);font-weight:700;margin-bottom:6px;">🚨 JD — posición real sigue abierta, -13.4%</div>
+        <div style="color:var(--muted);font-size:12px;">Sin rebote desde el gap del 13 ago. RSI en sobreventa (35.1). Seguimiento diario hasta que Alejandro decida vender o mantener.</div>
       </div>
       <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border);">
-        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">SMCI / CAVA — earnings martes 11 ago (AMC)</div>
-        <div style="color:var(--muted);font-size:12px;">Descartadas esta semana por dispersión histórica extrema (Regla 6). Revisar la reacción real para actualizar su historial.</div>
+        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">HD / TGT / LOW / TJX / EL / WMT / ROST / BABA — reportan 18-20 ago</div>
+        <div style="color:var(--muted);font-size:12px;">Ya descartados esta semana (Regla 2/6/11). Revisar resultado real para actualizar historial de cara a futuras ventanas.</div>
       </div>
       <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border);">
-        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">TTWO — earnings viernes 7 ago (AMC)</div>
-        <div style="color:var(--muted);font-size:12px;">Descartada por tendencia reciente negativa. Si esta vez rompe el patrón "sell the news", revisar para futuras ventanas.</div>
+        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">Próximo screening — semana del 24 ago</div>
+        <div style="color:var(--muted);font-size:12px;">Correr checklist completo de Metodología v2 sobre nuevos candidatos con catalizador duro en esa ventana.</div>
       </div>
     </div>
   </div>
