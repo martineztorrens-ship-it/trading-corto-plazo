@@ -163,7 +163,7 @@
     <button class="tab-btn active" onclick="showPage('p1', this)">🎯 Recomendación</button>
     <button class="tab-btn" onclick="showPage('p2', this)">📋 Historial</button>
   </div>
-  <div class="nav-date">🗓️ Lunes, 14 de Septiembre de 2026 — ORCL CERRADA en Cartera Real: el stop GTC de $145.00 se disparó por gap y ejecutó a $141.48 (-11.30% real)</div>
+  <div class="nav-date">🗓️ Lunes, 14 de Septiembre de 2026 (mercado abierto) — ORCL CERRADA en Cartera Real (stop $141.48, -11.30%); screening semanal sin nueva recomendación (Regla 10) — reglas ajustadas tras el cierre de ORCL (Addendum v4)</div>
 </nav>
 
 <!-- ════════════════════ PAGE 1: RECOMENDACIÓN ════════════════════ -->
@@ -194,6 +194,25 @@
     planeado, por el mismo patrón de gap-through-stop que ya afectó a JD y RDDT este año (a diferencia de SNOW
     y ROST, donde el stop ejecutó cerca del nivel exacto). Nada de esto refleja un problema del negocio —
     fue ruido de insider desmentido + tormenta macro. Posición cerrada, sin seguimiento pendiente.
+  </div>
+
+  <div style="background:rgba(148,163,184,.08);border:1px solid rgba(148,163,184,.4);border-radius:10px;padding:16px 18px;font-size:13px;color:var(--muted);margin-bottom:20px;line-height:1.7;">
+    🔎 <strong style="color:var(--text);">Screening semana 14-18 sep — sin nueva recomendación (Regla 10).</strong>
+    Con el capital de ORCL liberado se evaluó el universo completo de la semana (Regla 12): el único candidato
+    de tamaño relevante con catalizador de earnings fue <strong>TCOM (Trip.com Group)</strong>, que reporta
+    martes 15-sep AC. Se descartó por una <strong style="color:var(--red);">bandera roja estructural</strong>
+    (Regla 13): China le aplicó una multa antitrust de RMB 3,500M + confiscación de RMB 1,600M (~$720M
+    combinados), más nuevas exigencias regulatorias que obligan a eliminar la exclusividad con hoteles y los
+    ajustes automáticos de precio — un cambio de modelo de negocio con impacto directo en el trimestre que
+    reporta, no ruido pasajero. La acción viene cayendo fuerte pre-reporte (-5.11% el 3-sep, -3.23% el 9-sep,
+    -50% desde su máximo de 52 semanas), lo que en otro contexto sería "vara baja" (Regla 13) favorable, pero
+    acá el origen de la caída es la bandera roja regulatoria, no solo sentimiento — se aplica el criterio de
+    Regla 13: una bandera roja estructural descarta el candidato sin importar qué tan barata esté la entrada.
+    LEN (16-sep) y PGR (reporte mensual, no trimestral, catalizador débil) tampoco calificaron. No se abre
+    Trade #12 esta semana. Además, tras el cierre de ORCL se incorporaron tres ajustes a la metodología
+    (Addendum v4, ver <code>CRITERIOS_METODOLOGIA_V2.md</code>): tope de tamaño de posición cuando el hit-rate
+    histórico es ≤50%, subir el stop cuando el pop post-earnings se revierte por completo en la misma sesión,
+    y recalcular el stop sobre el precio de entrada real por defecto.
   </div>
 
   <div class="rec-header">
@@ -285,16 +304,16 @@
       </p>
       <br>
       <p style="font-size:13px;line-height:1.7;color:#cbd5e1;">
-        <strong>JD</strong> cotiza $27.06 hoy lunes 14-sep, 100 acc. @ $32.94 →
-        <strong style="color:var(--red);">-$588.00 no realizado, -17.85%</strong>. Stop GTC real en
+        <strong>JD</strong> cotiza $27.32 hoy lunes 14-sep (~09:48 AM hora Guatemala), 100 acc. @ $32.94 →
+        <strong style="color:var(--red);">-$561.60 no realizado, -17.05%</strong>. Stop GTC real en
         <strong style="color:var(--accent);">$25.00</strong> (100 acciones, colocado el 11-sep) — riesgo total
         acotado a <strong style="color:var(--red);">-$794.00 (-24.10%)</strong> si se dispara. Única posición real
         abierta del proyecto en este momento.
       </p>
       <br>
       <p style="font-size:13px;line-height:1.7;color:#cbd5e1;">
-        Sumado a lo ya realizado en VZ+PLTR+ROST+NVDA+SNOW+ORCL (+$2,259.73) y lo no realizado en JD (-$588.00), la
-        <strong style="color:var(--yellow);">Cartera Real neta hoy es +$1,671.73 (+3.56% s/ capital real
+        Sumado a lo ya realizado en VZ+PLTR+ROST+NVDA+SNOW+ORCL (+$2,259.73) y lo no realizado en JD (-$561.60), la
+        <strong style="color:var(--yellow);">Cartera Real neta hoy es +$1,698.13 (+3.61% s/ capital real
         desplegado)</strong>. Cifra independiente del backtest de Historial/Metodología — ver detalle completo en
         "🧾 Cartera Real" en la página Historial.
       </p>
@@ -364,34 +383,41 @@
     <h3>Contexto de Mercado (Regla 8)</h3>
     <div style="font-size:13px;">
       <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
-        <span style="color:var(--muted)">SPY</span><span style="color:var(--green);font-weight:700;">$765.74 (+1.03% viernes 11-sep, ~12:15 PM hora de Guatemala) vs. promedio 50d ~$758.65 — recuperó el promedio de 50 días tras testearlo el jueves, sin quiebre bajista</span>
+        <span style="color:var(--muted)">SPY</span><span style="color:var(--red);font-weight:700;">$761.73 (-0.34% lunes 14-sep, ~09:48 AM hora de Guatemala) vs. promedio 50d ~$758.62 — todavía por encima del promedio de 50 días, pero cede terreno por el contexto macro de riesgo-off</span>
       </div>
       <div style="display:flex;justify-content:space-between;padding:8px 0;">
-        <span style="color:var(--muted)">QQQ</span><span style="color:var(--green);font-weight:700;">$716.59 (+1.11% viernes 11-sep, ~12:15 PM hora de Guatemala) vs. promedio 50d ~$710.44 — también recuperó su promedio de 50 días</span>
+        <span style="color:var(--muted)">QQQ</span><span style="color:var(--red);font-weight:700;">$709.99 (-0.68% lunes 14-sep, ~09:48 AM hora de Guatemala) vs. promedio 50d ~$710.41 — ahora prácticamente en su promedio de 50 días, testeándolo por abajo</span>
       </div>
     </div>
-    <div style="margin-top:14px;padding:10px;background:rgba(16,185,129,.08);border-radius:8px;border:1px solid rgba(16,185,129,.25);font-size:12px;color:#6ee7b7;">
-      ✅ SPY y QQQ rebotan hoy viernes 11-sep y vuelven a quedar por encima de su promedio de 50 días, después de
-      testearlo sin quebrarlo el jueves — no hay condición de mercado adversa (Regla 8) para la semana que viene.
-      El rebote de índices no cambia la conclusión de esta semana: ni FDX ni LEN (únicos catalizadores líquidos con
-      reporte en la ventana de 5 días) pasan el checklist de la Regla 2/6 — ver "Screening semana 14-18 sep" más
-      abajo. Sin nueva recomendación (Regla 10).
+    <div style="margin-top:14px;padding:10px;background:rgba(239,68,68,.08);border-radius:8px;border:1px solid rgba(239,68,68,.25);font-size:12px;color:#fca5a5;">
+      ⚠️ SPY (-0.33%) y QQQ (-0.68%) bajan hoy lunes 14-sep (~09:48 AM hora Guatemala) — el mismo contexto macro de
+      riesgo-off (tensiones en Medio Oriente, petróleo al alza, temor a suba de tasas de la Fed) que gatilló el gap
+      de ORCL el fin de semana. Todavía por encima de sus promedios de 50 días (SPY ~$758.62, QQQ ~$710.41), sin
+      quiebre bajista claro, pero un contexto menos favorable que el de la semana pasada — motivo adicional (junto
+      con la bandera roja de TCOM) para no forzar una recomendación nueva esta semana (Regla 8 + Regla 10).
     </div>
   </div>
 
   <div class="section">
     <h3 style="color:var(--yellow);">🔎 Screening semana 14-18 sep — sin nueva recomendación (Regla 10)</h3>
     <p style="color:var(--muted);font-size:13px;line-height:1.7;">
-      Únicos dos catalizadores líquidos con reporte de resultados dentro de la ventana de 5 días desde hoy:
-      <strong>FDX</strong> (jueves 17-sep, AMC) y <strong>LEN</strong> (miércoles 16-sep). Ninguno pasa el checklist
-      completo de la Metodología v2 — detalle trimestre a trimestre en Página 2. En resumen: FDX tiene hit-rate
-      mediocre (3/7 positivos) y además <strong>sesgo de magnitud negativo</strong> — sus caídas post-reporte son en
-      promedio más grandes que sus subas (Regla 6, descarte directo). LEN tiene un historial abiertamente negativo
-      (1/8 positivos, 12.5%) con caídas consistentes de ~-4 a -5% en 7 de los últimos 8 reportes — descarte por
-      Regla 11 (tendencia reciente) y Regla 2/6 combinadas. Contexto de mercado favorable (SPY y QQQ de vuelta sobre
-      su promedio de 50 días) no alcanza para compensar el mal historial propio de ninguno de los dos tickers.
-      <strong style="color:var(--text)">Conclusión: no se abre Trade #12 esta semana (Regla 10)</strong> — se
-      mantiene el seguimiento de las posiciones abiertas (JD, ORCL) y se retoma el screening la semana del 21-sep.
+      Con el capital de ORCL liberado, se re-evaluó el universo completo de candidatos con catalizador esta semana
+      (Regla 12) usando el calendario de earnings en vivo (no solo el proyectado el 11-sep, que había identificado
+      erróneamente a FDX como candidato del 17-sep — <strong style="color:var(--yellow);">corrección: el próximo
+      reporte real de FDX es el 28-oct, no esta semana</strong>, dato desactualizado de la sesión anterior).
+      <strong>TCOM (Trip.com Group)</strong> es el único candidato de tamaño relevante con catalizador real: reporta
+      martes 15-sep AC. Se descartó por <strong style="color:var(--red);">bandera roja estructural</strong> (Regla
+      13): multa antitrust de China por RMB 3,500M + confiscación de RMB 1,600M (~$720M combinados) más nuevas
+      exigencias regulatorias (elimina exclusividad con hoteles y ajustes automáticos de precio) con impacto directo
+      en el trimestre que reporta — no es ruido, es un cambio de modelo de negocio. La caída fuerte pre-reporte
+      (-50% desde el máximo de 52 semanas, -5.11% el 3-sep, -3.23% el 9-sep) sería "vara baja" favorable (Regla 13)
+      en otro contexto, pero acá el origen es la bandera roja regulatoria, no sentimiento — se descarta sin importar
+      la entrada barata. <strong>LEN</strong> (miércoles 16-sep) mantiene el historial abiertamente negativo ya
+      evaluado (1/8 positivos, 12.5%, caídas de ~-4 a -5% en 7 de los últimos 8 reportes) — descarte por Regla 11.
+      <strong>PGR</strong> (viernes 18-sep) publica resultados mensuales, no un reporte trimestral con catalizador
+      concentrado — no calificó como catalizador duro (Regla 1). <strong style="color:var(--text)">Conclusión: no
+      se abre Trade #12 esta semana (Regla 10)</strong> — se mantiene el seguimiento de JD (única posición real
+      abierta) y se retoma el screening la semana del 21-sep.
     </p>
     <p style="color:var(--muted);font-size:12px;line-height:1.7;margin-top:10px;padding-top:10px;border-top:1px dashed rgba(148,163,184,.3);">
       <strong style="color:var(--accent2);">Re-chequeo a pedido de Alejandro (11-sep, más tarde el mismo día):</strong>
@@ -739,11 +765,11 @@
         <div class="sl">Perdedoras</div>
       </div>
       <div class="stat-card">
-        <div class="sv" style="color:var(--green);">+$1,671.73</div>
+        <div class="sv" style="color:var(--green);">+$1,698.13</div>
         <div class="sl">P&L Neto Cartera Real (14 sep)</div>
       </div>
       <div class="stat-card">
-        <div class="sv" style="color:var(--green);">+3.56%</div>
+        <div class="sv" style="color:var(--green);">+3.61%</div>
         <div class="sl">Retorno s/ Capital Real Desplegado ($46,986.10)</div>
       </div>
     </div>
@@ -797,10 +823,10 @@
             <td class="company-cell" style="font-size:11px;color:var(--muted);">Recomendación #08</td>
             <td style="font-size:12px;">Vie 7 Ago<br><span style="color:var(--accent);">$32.94 × 100 acc.</span></td>
             <td style="font-weight:600;">$3,294.00</td>
-            <td style="font-weight:600;color:var(--red);">$27.06</td>
+            <td style="font-weight:600;color:var(--red);">$27.32</td>
             <td style="font-size:12px;color:var(--muted);">Abierta*</td>
             <td><span class="status-badge status-abierta" style="border-color:var(--accent);color:var(--accent);">Stop GTC $25.00 activo (-24.10% real si se dispara)</span></td>
-            <td><div class="pl-neg">-$588.00</div><div style="font-size:11px;color:var(--muted);">-17.85% no realizado</div></td>
+            <td><div class="pl-neg">-$561.60</div><div style="font-size:11px;color:var(--muted);">-17.05% no realizado</div></td>
           </tr>
           <tr style="background:rgba(16,185,129,.08);">
             <td class="ticker-cell">ROST</td>
@@ -840,11 +866,11 @@
           </tr>
           <tr style="background:var(--bg3);">
             <td colspan="7" style="font-weight:700;font-size:12px;color:var(--text);text-align:right;padding:12px 14px;">TOTAL — No realizado (JD, abierta)</td>
-            <td style="padding:12px 14px;"><div class="pl-neg">-$588.00</div><div style="font-size:11px;color:var(--muted);">JD -$588.00 (-17.85%, 14-sep)</div></td>
+            <td style="padding:12px 14px;"><div class="pl-neg">-$561.60</div><div style="font-size:11px;color:var(--muted);">JD -$561.60 (-17.05%, 14-sep)</div></td>
           </tr>
           <tr style="background:rgba(16,185,129,.08);border-top:2px solid var(--green);">
             <td colspan="7" style="font-weight:800;font-size:13px;color:var(--green);text-align:right;padding:12px 14px;">TOTAL GENERAL CARTERA REAL — 14 sep (lunes)</td>
-            <td style="padding:12px 14px;"><div class="pl-pos" style="font-size:15px;color:var(--green);">+$1,671.73</div><div style="font-size:11px;color:var(--muted);">ORCL cerrada por stop con deslizamiento (-11.30%); solo JD sigue abierta</div></td>
+            <td style="padding:12px 14px;"><div class="pl-pos" style="font-size:15px;color:var(--green);">+$1,698.13</div><div style="font-size:11px;color:var(--muted);">ORCL cerrada por stop con deslizamiento (-11.30%); solo JD sigue abierta</div></td>
           </tr>
         </tfoot>
       </table>
@@ -853,7 +879,7 @@
       Capital real actualmente en posiciones abiertas: $3,294.00 (JD). PLTR, VZ,
       ROST, <strong style="color:var(--green);">NVDA</strong>, <strong style="color:var(--green);">SNOW</strong> y
       <strong style="color:var(--red);">ORCL</strong>
-      ya están cerradas — sus resultados quedaron realizados. *JD: cotiza $27.06 hoy lunes 14-sep, -$588.00 (-17.85%) no realizado. Reuters reportó la semana pasada que
+      ya están cerradas — sus resultados quedaron realizados. *JD: cotiza $27.32 hoy lunes 14-sep (~09:48 AM hora Guatemala), -$561.60 (-17.05%) no realizado. Reuters reportó la semana pasada que
       JD.com negocia comprar la participación de Ceconomy (matriz de MediaMarkt/Saturn) — sin impacto claro
       todavía en el precio. Alejandro confirmó que colocó un stop GTC real en $25.00 (100 acciones) — riesgo total
       acotado a -$794.00 (-24.10%) si se dispara. <strong style="color:var(--green);">SNOW: CERRADA el viernes 4-sep — el stop GTC
@@ -1074,9 +1100,9 @@
       posición llevaba más de un mes sin protección — queda resuelto.
     </p>
     <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-top:12px;padding-top:12px;border-top:1px solid rgba(239,68,68,.3);">
-      <strong style="color:var(--red);">Cierre lunes 14-sep:</strong> JD cotiza <strong style="color:var(--red);">
-      $27.06</strong> — no realizado: <strong style="color:var(--red);">-$588.00 (-17.85%)</strong> sobre el
-      capital real ($3,294.00), margen de -7.4% antes de que el stop GTC de $25.00 se active. Única posición real
+      <strong style="color:var(--red);">Seguimiento lunes 14-sep (~09:48 AM hora Guatemala, mercado abierto):</strong> JD cotiza <strong style="color:var(--red);">
+      $27.32</strong> — no realizado: <strong style="color:var(--red);">-$561.60 (-17.05%)</strong> sobre el
+      capital real ($3,294.00), margen de 8.51% antes de que el stop GTC de $25.00 se active. Única posición real
       abierta del proyecto tras el cierre de ORCL por stop este mismo día (ver Trade #11 arriba). Sin cambios al
       plan.
     </p>
@@ -1600,7 +1626,7 @@
       </div>
       <div style="background:rgba(239,68,68,.08);border-radius:10px;padding:14px;border:1px solid rgba(239,68,68,.4);">
         <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">📌 JD — posición real sigue abierta, -17.9%, stop GTC $25.00</div>
-        <div style="color:var(--muted);font-size:12px;">Cotiza $27.06 lunes 14-sep: -$588.00 (-17.85%) no realizado. Alejandro colocó un stop GTC real en $25.00 (100 acciones) el 11-sep — riesgo acotado a -$794.00 (-24.10%) si se dispara. Reuters reportó negociaciones para que JD.com compre la participación de Ceconomy (MediaMarkt/Saturn) — sin impacto claro aún en el precio. Única posición real abierta del proyecto. Próximo catalizador relevante: decisión UE 23-oct.</div>
+        <div style="color:var(--muted);font-size:12px;">Cotiza $27.32 lunes 14-sep (~09:48 AM hora Guatemala): -$561.60 (-17.05%) no realizado. Alejandro colocó un stop GTC real en $25.00 (100 acciones) el 11-sep — riesgo acotado a -$794.00 (-24.10%) si se dispara. Reuters reportó negociaciones para que JD.com compre la participación de Ceconomy (MediaMarkt/Saturn) — sin impacto claro aún en el precio. Única posición real abierta del proyecto. Próximo catalizador relevante: decisión UE 23-oct.</div>
       </div>
       <div style="background:rgba(239,68,68,.08);border-radius:10px;padding:14px;border:1px solid rgba(239,68,68,.4);">
         <div style="color:var(--red);font-weight:700;margin-bottom:6px;">🚨 ORCL — CERRADA, stop gapeó y ejecutó a $141.48 (-11.30%)</div>
