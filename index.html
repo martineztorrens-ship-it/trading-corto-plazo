@@ -163,11 +163,54 @@
     <button class="tab-btn active" onclick="showPage('p1', this)">🎯 Recomendación</button>
     <button class="tab-btn" onclick="showPage('p2', this)">📋 Historial</button>
   </div>
-  <div class="nav-date">🗓️ Jueves, 24 de Septiembre de 2026 (~10:00 AM hora Guatemala, mercado abierto) — DRI reportó hoy y falló levemente (EPS en línea $2.05, ingresos -0.2% vs. estimado), cae -1.9% — confirma el descarte del 23-sep; sin candidatos nuevos, sin nueva recomendación (Regla 10); JD -18.75% no realizado (intradía), única posición real abierta</div>
+  <div class="nav-date">🗓️ Lunes, 28 de Septiembre de 2026 (~8:20 AM hora Guatemala, mercado abierto) — Trade #12 AYI tocó su stop en la apertura (backtest, -5.40%; no había compra real); 🔁 Trade #13 AYI (reporta jue 1-oct ~4:00 AM Guatemala) + 🆕 Trade #14 RPM (reporta mar 6-oct ~4:30 AM Guatemala); JD -18.87% no realizado</div>
 </nav>
 
 <!-- ════════════════════ PAGE 1: RECOMENDACIÓN ════════════════════ -->
 <div class="page active" id="p1">
+
+  <div style="background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.4);border-radius:10px;padding:14px 18px;font-size:13px;color:#fca5a5;margin-bottom:14px;line-height:1.7;">
+    ❌ <strong>Trade #12 AYI (backtest) — CERRADO por stop antes del reporte.</strong> Emitido el viernes 25-sep con entrada de referencia $317.22 y stop $301.36 (-5.0%). El lunes 28-sep la acción abrió en $300.08 (mínimo $299.49), por debajo del stop, sin noticia propia de la empresa (día flojo del mercado: SPY -0.5%, QQQ -1.1%, y primeros minutos con poco volumen); se recuperó a ~$308 enseguida. Resultado del backtest: <strong>-5.40% (-$270.16 sobre $5,000)</strong>. <strong>No afecta la Cartera Real</strong>: Alejandro no confirmó compra.<br>
+    <span style="color:var(--muted);">Aprendizaje honesto: un stop de -5% puesto 4 días hábiles antes del catalizador quedó demasiado cerca para una acción que se mueve 2-3% por día sin noticias (recorrió $297-$319 en las últimas dos semanas). Para esperas previas al reporte, el stop debería ir debajo del último piso técnico, no a un % fijo.</span>
+  </div>
+
+  <div style="background:rgba(0,212,255,.08);border:2px solid var(--accent);border-radius:10px;padding:18px 20px;font-size:13px;color:#cbd5e1;margin-bottom:20px;line-height:1.75;">
+    🔁 <strong style="color:var(--accent);font-size:15px;">Nueva recomendación — Trade #13: AYI (Acuity Inc.), re-entrada</strong><br>
+    <span style="color:var(--muted);">¿Qué hace la empresa? Fabricante estadounidense (Atlanta) de iluminación comercial e industrial y de software/controles para "edificios inteligentes" (automatización, sensores, gestión de energía).</span><br><br>
+    <strong>Por qué se vuelve a proponer:</strong> la tesis no cambió — el catalizador sigue siendo el reporte del <strong>jueves 1-oct a las 6:00 AM ET (~4:00 AM hora Guatemala)</strong>, antes de la apertura; en el mismo trimestre de los últimos 3 años subió las 3 veces (+0.1%, +8.7%, +5.4%) y 5 de sus últimos 8 reportes fueron positivos. La caída de hoy fue sin noticia propia y deja una entrada ~3% más barata que la del viernes. El stop ahora se ubica <strong>debajo del piso técnico</strong> (mínimo del 16-sep $296.96 y de hoy $299.49), no a un % fijo.<br>
+    <strong>Riesgos:</strong> 2 de sus últimos 4 reportes cayeron fuerte (-7.5% y -12.9%) — si el reporte decepciona, puede abrir por debajo del stop. Monto moderado por eso.<br><br>
+    <table style="width:100%;font-size:13px;border-collapse:collapse;">
+      <tr><td style="color:var(--muted);padding:4px 0;">Entrada (referencia, en vivo)</td><td style="font-weight:700;">$308.45 (lun 28-sep, intradía)</td></tr>
+      <tr><td style="color:var(--muted);padding:4px 0;">Comprar</td><td style="font-weight:700;color:var(--accent);">Hoy lunes 28-sep hasta el cierre del miércoles 30-sep, SIEMPRE antes del reporte</td></tr>
+      <tr><td style="color:var(--muted);padding:4px 0;">Objetivo (Regla 6)</td><td style="font-weight:700;color:var(--green);">$323.00 (+4.7%, promedio del mismo trimestre 3 años) → vender 50% y subir el stop del resto a breakeven</td></tr>
+      <tr><td style="color:var(--muted);padding:4px 0;">Stop</td><td style="font-weight:700;color:var(--red);">$294.00 (-4.7%), debajo del piso de $297-$299 — recalcular sobre la entrada real (Regla 6.3b)</td></tr>
+      <tr><td style="color:var(--muted);padding:4px 0;">Vender</td><td style="font-weight:700;">Jue 1-oct / vie 2-oct al tocar el objetivo; 50% restante con stop dinámico, ventana máxima hasta el mié 7-oct</td></tr>
+      <tr><td style="color:var(--muted);padding:4px 0;">Monto propuesto (Regla 3)</td><td style="font-weight:700;color:var(--yellow);">~USD 5,000 (16 acc. ≈ $4,935) — A CONFIRMAR por Alejandro</td></tr>
+    </table>
+    <div style="margin-top:10px;font-size:12px;color:var(--muted);">Nada se da por comprado hasta que Alejandro lo confirme.</div>
+  </div>
+
+  <div style="background:rgba(16,185,129,.07);border:2px solid var(--green);border-radius:10px;padding:18px 20px;font-size:13px;color:#cbd5e1;margin-bottom:20px;line-height:1.75;">
+    🆕 <strong style="color:var(--green);font-size:15px;">Nueva recomendación — Trade #14: RPM (RPM International)</strong> — segunda acción para comprar junto con AYI<br>
+    <span style="color:var(--muted);">¿Qué hace la empresa? Fabricante estadounidense (Ohio) de recubrimientos, selladores y pinturas especiales para construcción, industria y consumo (marcas Rust-Oleum, DAP, Tremco). "Dividend King": sube su dividendo hace más de 50 años.</span><br><br>
+    <strong>Catalizador:</strong> reporta su 1er trimestre fiscal 2027 el <strong>martes 6-oct antes de la apertura (~6:30 AM ET, ~4:30 AM hora Guatemala, hora estimada)</strong>. Consenso: EPS $1.95 (vs. $1.88 hace un año), ingresos $2,220M (vs. $2,110M).<br>
+    <strong>Por qué pasa el checklist:</strong>
+    (1) <strong>6 de sus últimos 8 reportes positivos (75%)</strong>: +5.8%, +12.4%, +1.7%, -0.6%, +8.6%, -9.1% (abr-25, crisis de aranceles), +1.1%, +6.3%. Ganadores promedian +6.0%, perdedores -4.9% — sesgo positivo;
+    (2) mismo trimestre (octubre) últimos 3 años: +6.3% (23), +6.3% (24), -0.6% (25) → 2/3, promedio +4.0% (Regla 11: 2/3 no descalifica);
+    (3) <strong>"vara baja"</strong>: cayó de $112 (mediados de agosto) a ~$99 (-11%), -17% desde su máximo de 52 semanas, y viene formando piso entre $98.4 y $101 hace tres semanas;
+    (4) analistas mayormente en compra (BMO $151, RBC $128, Citi $128, Morgan Stanley $117) vs. ~$99 hoy; compró Volteco (impermeabilización) el 23-sep.<br>
+    <strong>Riesgos:</strong> insiders sin compras en mercado abierto (solo retenciones de impuestos/awards de rutina); sector químico/construcción sensible a la economía.<br><br>
+    <table style="width:100%;font-size:13px;border-collapse:collapse;">
+      <tr><td style="color:var(--muted);padding:4px 0;">Entrada (referencia, en vivo)</td><td style="font-weight:700;">$99.28 (lun 28-sep, intradía)</td></tr>
+      <tr><td style="color:var(--muted);padding:4px 0;">Comprar</td><td style="font-weight:700;color:var(--accent);">Desde hoy hasta el cierre del lunes 5-oct, SIEMPRE antes del reporte</td></tr>
+      <tr><td style="color:var(--muted);padding:4px 0;">Objetivo (Regla 6)</td><td style="font-weight:700;color:var(--green);">$103.25 (+4.0%, promedio del mismo trimestre 3 años) → vender 50% y subir el stop del resto a breakeven</td></tr>
+      <tr><td style="color:var(--muted);padding:4px 0;">Stop</td><td style="font-weight:700;color:var(--red);">$95.40 (-3.9%), debajo del piso de $98.37 del 18-sep — recalcular sobre la entrada real</td></tr>
+      <tr><td style="color:var(--muted);padding:4px 0;">Vender</td><td style="font-weight:700;">Mar 6-oct / mié 7-oct al tocar el objetivo; 50% restante con stop dinámico, hasta el jue 8-oct como máximo (Regla 4, extensión)</td></tr>
+      <tr><td style="color:var(--muted);padding:4px 0;">Monto propuesto (Regla 3)</td><td style="font-weight:700;color:var(--yellow);">~USD 5,000 (50 acc. ≈ $4,964) — A CONFIRMAR por Alejandro</td></tr>
+    </table>
+    <div style="margin-top:10px;font-size:12px;color:var(--muted);"><strong>Capital combinado si se compran las dos (Regla 3):</strong> AYI ~$4,935 + RPM ~$4,964 ≈ <strong>$9,900</strong>. Riesgo máximo si ambos stops se ejecutan sin deslizamiento: AYI -$232 + RPM -$194 ≈ <strong>-$426 (-4.3%)</strong>; si ambos tocan su objetivo: ≈ <strong>+$430 (+4.3%)</strong>.
+    <br><strong>¿Y una tercera?</strong> Se revisaron también LW, STZ, CAG, CALM, LEVI, PENG y MTN. <strong>LW (Lamb Weston, 6-oct)</strong> fue la más cercana: 3/3 en el mismo trimestre y llega muy castigada (-21% en un mes), pero sus caídas son mucho más grandes que sus subas (-25.9% y -20.1% en dos reportes de diciembre, promedio de perdedores -18% vs. ganadores +6%), el mercado espera un EPS -22% interanual y hay estudios de abogados investigando a la empresa — <strong>no pasa</strong> (Regla 6.4, sesgo negativo). STZ 1/3 y LEVI 0/3 en el mismo trimestre; CAG, CALM y PENG sin sesgo positivo. Honestamente, hoy solo hay dos que cumplen las reglas.</div>
+  </div>
 
   <div style="background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.4);border-radius:10px;padding:16px 18px;font-size:13px;color:#86efac;margin-bottom:20px;line-height:1.7;">
     ✅ <strong>SNOW — CERRADA: el stop real GTC de $355.00 se ejecutó esta mañana, sin deslizamiento.</strong>
@@ -304,16 +347,16 @@
       </p>
       <br>
       <p style="font-size:13px;line-height:1.7;color:#cbd5e1;">
-        <strong>JD</strong> cotiza $26.77 hoy jueves 24-sep (intradía), 100 acc.
-        @ $32.94 → <strong style="color:var(--red);">-$617.50 no realizado, -18.75%</strong>. Stop GTC real en
+        <strong>JD</strong> cotiza $26.73 hoy lunes 28-sep (intradía), 100 acc.
+        @ $32.94 → <strong style="color:var(--red);">-$621.50 no realizado, -18.87%</strong>. Stop GTC real en
         <strong style="color:var(--accent);">$25.00</strong> (100 acciones, colocado el 11-sep) — riesgo total
-        acotado a <strong style="color:var(--red);">-$794.00 (-24.10%)</strong> si se dispara, margen de 6.61%
+        acotado a <strong style="color:var(--red);">-$794.00 (-24.10%)</strong> si se dispara, margen de 6.45%
         antes de que se active. Única posición real abierta del proyecto en este momento.
       </p>
       <br>
       <p style="font-size:13px;line-height:1.7;color:#cbd5e1;">
-        Sumado a lo ya realizado en VZ+PLTR+ROST+NVDA+SNOW+ORCL (+$2,259.73) y lo no realizado en JD (-$617.50), la
-        <strong style="color:var(--yellow);">Cartera Real neta hoy es +$1,642.23 (+3.50% s/ capital real
+        Sumado a lo ya realizado en VZ+PLTR+ROST+NVDA+SNOW+ORCL (+$2,259.73) y lo no realizado en JD (-$621.50), la
+        <strong style="color:var(--yellow);">Cartera Real neta hoy es +$1,638.23 (+3.49% s/ capital real
         desplegado)</strong>. Cifra independiente del backtest de Historial/Metodología — ver detalle completo en
         "🧾 Cartera Real" en la página Historial.
       </p>
@@ -383,14 +426,14 @@
     <h3>Contexto de Mercado (Regla 8)</h3>
     <div style="font-size:13px;">
       <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);">
-        <span style="color:var(--muted)">SPY</span><span style="color:var(--yellow);font-weight:700;">$764.17 (jueves 24-sep, intradía) — retrocede -0.47% en el día, tercera sesión roja seguida, todavía por encima de su promedio de 50 días</span>
+        <span style="color:var(--muted)">SPY</span><span style="color:var(--yellow);font-weight:700;">$767.59 (lunes 28-sep, intradía) — -0.5% vs. cierre del viernes ($771.35); ~+0.8% sobre su media de 50 días</span>
       </div>
       <div style="display:flex;justify-content:space-between;padding:8px 0;">
-        <span style="color:var(--muted)">QQQ</span><span style="color:var(--yellow);font-weight:700;">$736.08 (jueves 24-sep, intradía) — retrocede -0.69% en el día, mismo patrón que SPY</span>
+        <span style="color:var(--muted)">QQQ</span><span style="color:var(--yellow);font-weight:700;">$736.48 (lunes 28-sep, intradía) — -1.1% vs. cierre del viernes ($744.50); ~+3% sobre su media de 50 días</span>
       </div>
     </div>
     <div style="margin-top:14px;padding:10px;background:rgba(245,158,11,.08);border-radius:8px;border:1px solid rgba(245,158,11,.25);font-size:12px;color:#fbbf24;">
-      ⚠️ SPY y QQQ encadenan una tercera sesión roja hoy jueves 24-sep, aunque ambos se mantienen
+      ⚠️ Lunes 28-sep: SPY y QQQ arrancan la semana en baja (QQQ -1.1%) tras cerrar el viernes en alza; ambos se mantienen
       por encima de sus promedios de 50 días — contexto de mercado neutral-a-favorable (Regla 8), sin cambiar la
       conclusión del screening: DRI reportó hoy y confirmó el descarte del 23-sep (cayó tras un resultado flojo),
       sin candidatos nuevos que pasen el checklist (Regla 10).
@@ -571,6 +614,36 @@
       <strong>MU</strong> (30-sep) siguen en la ventana pero sin cambios desde su último chequeo — se retoman más
       cerca de sus fechas. Conclusión: <strong>sin Trade #12, octavo día seguido (Regla 10)</strong>.
     </p>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-top:12px;padding-top:12px;border-top:1px solid rgba(0,212,255,.4);">
+      <strong style="color:var(--accent);">Re-chequeo viernes 25-sep (~9:10 AM hora Guatemala, mercado abierto):</strong>
+      la ventana de 7 días hábiles corre ahora hasta el 6-oct. Se calculó el historial propio de 8 reportes + mismo
+      trimestre de los últimos 3 años para los candidatos con peso de la semana próxima:
+      <strong>JEF</strong> (28-sep) 2/8 positivos — descartada; <strong>CCL</strong> 3/8, <strong>KMX</strong> 3/8
+      (-20.1% en sep-25), <strong>JBL</strong> mismo trimestre 1/3 — se re-confirman descartadas; <strong>AIR</strong>
+      mismo trimestre 1/3 — descartada; <strong>PRGS</strong> y <strong>FDS</strong> 2/3 con dispersión alta
+      (PRGS de -13% a +17%, FDS -10.4% en sep-25) — descartadas; <strong>MKC</strong> mismo trimestre 1/3 y 3 de
+      sus últimos 4 reportes negativos — descartada. <strong style="color:var(--green);">AYI (Acuity, 1-oct) pasa el
+      checklist</strong>: 3/3 en el mismo trimestre fiscal, 5/8 en general, llega con "vara baja" (-7.4% en un mes),
+      ESP positivo y consenso de compra. Conclusión: <strong style="color:var(--accent);">se emite Trade #12 — AYI</strong>
+      (ver banner arriba). Monto propuesto ~USD 5,000, pendiente de confirmación.
+    </p>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-top:12px;padding-top:12px;border-top:1px solid rgba(239,68,68,.4);">
+      <strong style="color:var(--red);">Re-chequeo lunes 28-sep (~8:20 AM hora Guatemala, mercado abierto):</strong>
+      AYI cerró el viernes en $319.42 (+0.7% sobre la referencia) pero hoy abrió en $300.08, debajo del stop de $301.36 —
+      <strong>el backtest del Trade #12 se cierra en pérdida (-5.40%)</strong>. No hubo noticia propia de la empresa (solo
+      notas previas de Zacks); fue un día flojo del mercado (QQQ -1.1%) con poco volumen en la apertura, y la acción
+      rebotó enseguida a ~$308. Como la tesis del catalizador sigue intacta y la entrada quedó más barata, se propone una
+      <strong style="color:var(--accent);">re-entrada como Trade #13</strong> con el stop debajo del piso técnico ($294.00)
+      en lugar de un % fijo. Monto ~USD 5,000, pendiente de confirmación.
+    </p>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-top:12px;padding-top:12px;border-top:1px solid rgba(16,185,129,.4);">
+      <strong style="color:var(--green);">Ampliación del screening a pedido de Alejandro (28-sep, buscar 2-3 acciones):</strong>
+      ventana hasta el 7/8-oct. <strong style="color:var(--green);">RPM (6-oct) pasa → Trade #14</strong>: 6/8 reportes positivos con
+      sesgo positivo, mismo trimestre 2/3 (+6.3/+6.3/-0.6), vara baja (-11% desde agosto) y piso formado en $98-101.
+      <strong>LW</strong> (6-oct) casi califica (3/3 mismo trimestre, -21% en un mes) pero sus caídas en reportes son mucho más grandes
+      que sus subas y hay investigaciones de estudios de abogados → descartada. <strong>STZ</strong> 1/3, <strong>LEVI</strong> 0/3,
+      <strong>CAG</strong>/<strong>CALM</strong> sin sesgo, <strong>PENG</strong> -23.5%/-16.0% en los dos octubres previos → descartadas.
+    </p>
     <p style="color:var(--muted);font-size:12px;line-height:1.7;margin-top:10px;padding-top:10px;border-top:1px dashed rgba(148,163,184,.3);">
       <strong style="color:var(--accent2);">Re-chequeo a pedido de Alejandro (11-sep, más tarde el mismo día):</strong>
       ante su interés en comprar algo esta semana, se revisó de nuevo con más profundidad sin flexibilizar las
@@ -608,7 +681,7 @@
 
   <div class="stats-row">
     <div class="stat-card">
-      <div class="sv" style="color:var(--text);">11</div>
+      <div class="sv" style="color:var(--text);">12</div>
       <div class="sl">Total Trades Cerrados</div>
     </div>
     <div class="stat-card win-c">
@@ -620,20 +693,20 @@
       <div class="sl">Parciales</div>
     </div>
     <div class="stat-card loss-c">
-      <div class="sv" style="color:var(--red);">5</div>
+      <div class="sv" style="color:var(--red);">6</div>
       <div class="sl">Pérdidas</div>
     </div>
     <div class="stat-card total-c">
-      <div class="sv" style="color:var(--accent);">0</div>
+      <div class="sv" style="color:var(--accent);">2</div>
       <div class="sl">En Curso</div>
     </div>
     <div class="stat-card">
-      <div class="sv" style="color:var(--green);">+$1,767.07</div>
-      <div class="sl">P&L Total Metodología (11 cerrados)</div>
+      <div class="sv" style="color:var(--green);">+$1,496.91</div>
+      <div class="sl">P&L Total Metodología (12 cerrados)</div>
     </div>
     <div class="stat-card">
-      <div class="sv" style="color:var(--green);">+3.21%</div>
-      <div class="sl">Retorno Blended Metodología ($5K/trade, s/$55,000)</div>
+      <div class="sv" style="color:var(--green);">+2.49%</div>
+      <div class="sl">Retorno Blended Metodología ($5K/trade, s/$60,000)</div>
     </div>
   </div>
 
@@ -868,11 +941,68 @@
             </td>
           </tr>
 
+          <!-- TRADE 12: AYI (CERRADA por stop antes del reporte, backtest) -->
+          <tr style="background:rgba(239,68,68,.06);">
+            <td style="color:var(--muted);font-size:12px;">12</td>
+            <td style="font-size:12px;">Sep 25 – Sep 28 2026</td>
+            <td class="ticker-cell">AYI</td>
+            <td class="company-cell">Acuity Inc.</td>
+            <td style="font-weight:600;">$317.22</td>
+            <td style="color:var(--green);">$332.20 (+4.7%)</td>
+            <td style="color:var(--red);">$301.36</td>
+            <td style="color:var(--gold);font-weight:700;">+4.7%</td>
+            <td style="font-size:12px;">Vie 25 Sep<br><span style="color:var(--accent);">$317.22 (ref.)</span></td>
+            <td style="font-size:12px;">Lun 28 Sep<br><span style="color:var(--red);">$300.08 (apertura, gap bajo stop)</span></td>
+            <td><span class="status-badge status-perdida">❌ PÉRDIDA</span></td>
+            <td>
+              <div class="pl-neg">-$270.16</div>
+              <div style="font-size:11px;color:var(--muted);">-5.40% · stop tocado antes del reporte, sin noticia propia</div>
+            </td>
+          </tr>
+
+          <!-- TRADE 13: AYI re-entrada (EN CURSO — emitida 28-sep) -->
+          <tr style="background:rgba(0,212,255,.06);">
+            <td style="color:var(--muted);font-size:12px;">13</td>
+            <td style="font-size:12px;">Sep 28 – Oct 7 2026</td>
+            <td class="ticker-cell">AYI</td>
+            <td class="company-cell">Acuity Inc. (re-entrada)</td>
+            <td style="font-weight:600;">$308.45</td>
+            <td style="color:var(--green);">$323.00 (+4.7%)</td>
+            <td style="color:var(--red);">$294.00</td>
+            <td style="color:var(--gold);font-weight:700;">+4.7%</td>
+            <td style="font-size:12px;">Lun 28 Sep<br><span style="color:var(--accent);">$308.45 (ref.)</span></td>
+            <td style="font-size:12px;">Jue 1 – Mié 7 Oct<br><span style="color:var(--muted);">pendiente</span></td>
+            <td><span class="status-badge status-abierta">⏳ EN CURSO</span></td>
+            <td>
+              <div class="pl-neu">$0.00</div>
+              <div style="font-size:11px;color:var(--muted);">reporta 1-oct antes de la apertura (~4:00 AM Guatemala)</div>
+            </td>
+          </tr>
+
+          <!-- TRADE 14: RPM (EN CURSO — emitida 28-sep) -->
+          <tr style="background:rgba(0,212,255,.06);">
+            <td style="color:var(--muted);font-size:12px;">14</td>
+            <td style="font-size:12px;">Sep 28 – Oct 8 2026</td>
+            <td class="ticker-cell">RPM</td>
+            <td class="company-cell">RPM International Inc.</td>
+            <td style="font-weight:600;">$99.28</td>
+            <td style="color:var(--green);">$103.25 (+4.0%)</td>
+            <td style="color:var(--red);">$95.40</td>
+            <td style="color:var(--gold);font-weight:700;">+4.0%</td>
+            <td style="font-size:12px;">Lun 28 Sep<br><span style="color:var(--accent);">$99.28 (ref.)</span></td>
+            <td style="font-size:12px;">Mar 6 – Jue 8 Oct<br><span style="color:var(--muted);">pendiente</span></td>
+            <td><span class="status-badge status-abierta">⏳ EN CURSO</span></td>
+            <td>
+              <div class="pl-neu">$0.00</div>
+              <div style="font-size:11px;color:var(--muted);">reporta 6-oct antes de la apertura (~4:30 AM Guatemala)</div>
+            </td>
+          </tr>
+
         </tbody>
         <tfoot>
           <tr style="background:rgba(0,212,255,.05);border-top:2px solid var(--accent);">
-            <td colspan="11" style="font-weight:800;font-size:13px;color:var(--accent);text-align:right;padding:12px 14px;">TOTAL GENERAL — 11 recomendaciones cerradas</td>
-            <td style="padding:12px 14px;"><div class="pl-pos" style="font-size:15px;">+$1,767.07</div><div style="font-size:11px;color:var(--muted);">+3.21% blended s/$55,000 (11 cerrados) · metodología, no es la cartera real</div></td>
+            <td colspan="11" style="font-weight:800;font-size:13px;color:var(--accent);text-align:right;padding:12px 14px;">TOTAL GENERAL — 12 recomendaciones cerradas</td>
+            <td style="padding:12px 14px;"><div class="pl-pos" style="font-size:15px;">+$1,496.91</div><div style="font-size:11px;color:var(--muted);">+2.49% blended s/$60,000 (12 cerrados) · metodología, no es la cartera real</div></td>
           </tr>
         </tfoot>
       </table>
@@ -917,11 +1047,11 @@
         <div class="sl">Perdedoras</div>
       </div>
       <div class="stat-card">
-        <div class="sv" style="color:var(--green);">+$1,642.23</div>
-        <div class="sl">P&L Neto Cartera Real (24 sep, intradía)</div>
+        <div class="sv" style="color:var(--green);">+$1,638.23</div>
+        <div class="sl">P&L Neto Cartera Real (28 sep, intradía)</div>
       </div>
       <div class="stat-card">
-        <div class="sv" style="color:var(--green);">+3.50%</div>
+        <div class="sv" style="color:var(--green);">+3.49%</div>
         <div class="sl">Retorno s/ Capital Real Desplegado ($46,986.10)</div>
       </div>
     </div>
@@ -975,10 +1105,10 @@
             <td class="company-cell" style="font-size:11px;color:var(--muted);">Recomendación #08</td>
             <td style="font-size:12px;">Vie 7 Ago<br><span style="color:var(--accent);">$32.94 × 100 acc.</span></td>
             <td style="font-weight:600;">$3,294.00</td>
-            <td style="font-weight:600;color:var(--red);">$26.77</td>
+            <td style="font-weight:600;color:var(--red);">$26.73</td>
             <td style="font-size:12px;color:var(--muted);">Abierta*</td>
             <td><span class="status-badge status-abierta" style="border-color:var(--accent);color:var(--accent);">Stop GTC $25.00 activo (-24.10% real si se dispara)</span></td>
-            <td><div class="pl-neg">-$617.50</div><div style="font-size:11px;color:var(--muted);">-18.75% no realizado</div></td>
+            <td><div class="pl-neg">-$621.50</div><div style="font-size:11px;color:var(--muted);">-18.87% no realizado</div></td>
           </tr>
           <tr style="background:rgba(16,185,129,.08);">
             <td class="ticker-cell">ROST</td>
@@ -1018,11 +1148,11 @@
           </tr>
           <tr style="background:var(--bg3);">
             <td colspan="7" style="font-weight:700;font-size:12px;color:var(--text);text-align:right;padding:12px 14px;">TOTAL — No realizado (JD, abierta)</td>
-            <td style="padding:12px 14px;"><div class="pl-neg">-$617.50</div><div style="font-size:11px;color:var(--muted);">JD -$617.50 (-18.75%, 24-sep intradía)</div></td>
+            <td style="padding:12px 14px;"><div class="pl-neg">-$621.50</div><div style="font-size:11px;color:var(--muted);">JD -$621.50 (-18.87%, 28-sep intradía)</div></td>
           </tr>
           <tr style="background:rgba(16,185,129,.08);border-top:2px solid var(--green);">
-            <td colspan="7" style="font-weight:800;font-size:13px;color:var(--green);text-align:right;padding:12px 14px;">TOTAL GENERAL CARTERA REAL — 24 sep (jueves, intradía)</td>
-            <td style="padding:12px 14px;"><div class="pl-pos" style="font-size:15px;color:var(--green);">+$1,642.23</div><div style="font-size:11px;color:var(--muted);">ORCL cerrada por stop con deslizamiento (-11.30%); solo JD sigue abierta</div></td>
+            <td colspan="7" style="font-weight:800;font-size:13px;color:var(--green);text-align:right;padding:12px 14px;">TOTAL GENERAL CARTERA REAL — 28 sep (lunes, intradía)</td>
+            <td style="padding:12px 14px;"><div class="pl-pos" style="font-size:15px;color:var(--green);">+$1,638.23</div><div style="font-size:11px;color:var(--muted);">ORCL cerrada por stop con deslizamiento (-11.30%); solo JD sigue abierta</div></td>
           </tr>
         </tfoot>
       </table>
@@ -1031,7 +1161,7 @@
       Capital real actualmente en posiciones abiertas: $3,294.00 (JD). PLTR, VZ,
       ROST, <strong style="color:var(--green);">NVDA</strong>, <strong style="color:var(--green);">SNOW</strong> y
       <strong style="color:var(--red);">ORCL</strong>
-      ya están cerradas — sus resultados quedaron realizados. *JD: cotiza $26.77 hoy jueves 24-sep (intradía), -$617.50 (-18.75%) no realizado. Reuters
+      ya están cerradas — sus resultados quedaron realizados. *JD: cotiza $26.73 hoy lunes 28-sep (intradía), -$621.50 (-18.87%) no realizado. Reuters
       reportó hace unos días que JD.com negocia comprar la participación de Ceconomy (matriz de MediaMarkt/Saturn)
       — sin impacto claro todavía en el precio. Alejandro confirmó que colocó un stop GTC real en $25.00 (100
       acciones) — riesgo total acotado a -$794.00 (-24.10%) si se dispara. <strong style="color:var(--green);">SNOW: CERRADA el viernes 4-sep — el stop GTC
@@ -1307,6 +1437,18 @@
       -$617.50 (-18.75%)</strong> sobre el capital real ($3,294.00), margen de 6.61% antes de que el stop GTC de
       $25.00 se active. Sin catalizador nuevo ni cambio de tesis (próximo catalizador relevante: decisión UE 23-oct).
       Sin cambios al plan.
+    </p>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(239,68,68,.3);">
+      <strong style="color:var(--red);">Viernes 25-sep (intradía, mercado abierto):</strong> JD cotiza
+      <strong style="color:var(--red);">$26.49</strong> (cerró $26.75 el jueves) — no realizado: <strong style="color:var(--red);">
+      -$645.00 (-19.58%)</strong> sobre el capital real ($3,294.00), margen de 5.62% antes de que el stop GTC de
+      $25.00 se active — el margen se viene achicando (8.7% el 22-sep, 5.6% hoy). Sin catalizador nuevo ni cambio de
+      tesis (próximo catalizador relevante: decisión UE 23-oct). Sin cambios al plan: el stop GTC ya está puesto.
+    </p>
+    <p style="color:var(--muted);font-size:13px;line-height:1.7;margin-top:12px;padding-top:12px;border-top:1px dashed rgba(239,68,68,.3);">
+      <strong style="color:var(--red);">Lunes 28-sep (intradía, mercado abierto):</strong> JD cotiza
+      <strong style="color:var(--red);">$26.73</strong> (cerró $26.51 el viernes) — no realizado: <strong style="color:var(--red);">
+      -$621.50 (-18.87%)</strong>, margen de 6.45% antes del stop GTC de $25.00. Sin cambios al plan.
     </p>
   </div>
 
@@ -1827,16 +1969,16 @@
         <div style="color:var(--muted);font-size:12px;">30 acc. @ $329.40 → vendidas @ $355.00 (stop GTC real, sin deslizamiento) el viernes 4-sep. Resultado realizado: +$768.00 (+7.77%). Backtest ya resuelto: Trade #10 GANADORA (+14.30%). Posición cerrada, sin seguimiento pendiente.</div>
       </div>
       <div style="background:rgba(239,68,68,.08);border-radius:10px;padding:14px;border:1px solid rgba(239,68,68,.4);">
-        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">📌 JD — posición real sigue abierta, -17.7%, stop GTC $25.00</div>
-        <div style="color:var(--muted);font-size:12px;">Cotiza $26.77 jueves 24-sep (intradía): -$617.50 (-18.75%) no realizado. Alejandro colocó un stop GTC real en $25.00 (100 acciones) el 11-sep — riesgo acotado a -$794.00 (-24.10%) si se dispara. Reuters reportó negociaciones para que JD.com compre la participación de Ceconomy (MediaMarkt/Saturn) — sin impacto claro aún en el precio. Única posición real abierta del proyecto. Próximo catalizador relevante: decisión UE 23-oct.</div>
+        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">📌 JD — posición real sigue abierta, -18.9%, stop GTC $25.00</div>
+        <div style="color:var(--muted);font-size:12px;">Cotiza $26.73 lunes 28-sep (intradía): -$621.50 (-18.87%) no realizado, margen 6.45% al stop. Alejandro colocó un stop GTC real en $25.00 (100 acciones) el 11-sep — riesgo acotado a -$794.00 (-24.10%) si se dispara. Reuters reportó negociaciones para que JD.com compre la participación de Ceconomy (MediaMarkt/Saturn) — sin impacto claro aún en el precio. Única posición real abierta del proyecto. Próximo catalizador relevante: decisión UE 23-oct.</div>
       </div>
       <div style="background:rgba(239,68,68,.08);border-radius:10px;padding:14px;border:1px solid rgba(239,68,68,.4);">
         <div style="color:var(--red);font-weight:700;margin-bottom:6px;">🚨 ORCL — CERRADA, stop gapeó y ejecutó a $141.48 (-11.30%)</div>
         <div style="color:var(--muted);font-size:12px;">35 acc. @ $159.50 ($5,582.50 reales), comprada viernes 4-sep. Reportó beat-and-raise el 10-sep AMC; abrió +7.5% el viernes 11-sep, revirtió todo el salto y cerró ese día en $150.28 (por encima del stop). El lunes 14-sep abrió ya en $141.42, el stop GTC de $145.00 se disparó por el gap y ejecutó a $141.48, con deslizamiento — mismo patrón que JD (Trade #08) y RDDT (Trade #06). Resultado real: -$630.70 (-11.30%), peor que el -9.09% planeado. Backtest (Trade #11): PÉRDIDA, -$62.65 (-1.25%). Posición cerrada, sin seguimiento pendiente. Ver detalle completo en Página 1 y Página 2.</div>
       </div>
       <div style="background:var(--bg3);border-radius:10px;padding:14px;border:1px solid var(--border);">
-        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">Screening ventana 23-sep al 2-oct — 13 descartados, DRI confirmada por su propio reporte (Regla 10)</div>
-        <div style="color:var(--muted);font-size:12px;">COST, AZO, CTAS, GIS, KBH (17-sep), SNX, CCL, KMX, JBL, MU (21-sep), ACN, NKE, PAYX, CBRL, CNXC (22-sep) y DRI (23-sep) descartados — ver detalle arriba. PAYX, CBRL y DRI ya reportaron: PAYX cayó -7.40% pese a beat (confirma el descarte), CBRL subió +7.28% con un beat enorme (el descarte resultó equivocado esta vez — aprendizaje honesto, sin ajustar la regla por un solo dato), DRI cayó -1.9% con un resultado levemente flojo (confirma el descarte del 23-sep). No se abre Trade #12 (octavo día seguido sin nueva recomendación). Corrección de dato: el reporte real de FDX es el 28-oct, no el 17-sep (dato erróneo de una sesión anterior).</div>
+        <div style="color:var(--accent);font-weight:700;margin-bottom:6px;">Screening ventana al 7-oct — Trade #12 AYI cerrado por stop (backtest); 🔁 #13 AYI (1-oct) + 🆕 #14 RPM (6-oct); LW, STZ, CAG, CALM, LEVI, PENG descartados</div>
+        <div style="color:var(--muted);font-size:12px;">COST, AZO, CTAS, GIS, KBH (17-sep), SNX, CCL, KMX, JBL, MU (21-sep), ACN, NKE, PAYX, CBRL, CNXC (22-sep) y DRI (23-sep) descartados — ver detalle arriba. PAYX, CBRL y DRI ya reportaron: PAYX cayó -7.40% pese a beat (confirma el descarte), CBRL subió +7.28% con un beat enorme (el descarte resultó equivocado esta vez — aprendizaje honesto, sin ajustar la regla por un solo dato), DRI cayó -1.9% con un resultado levemente flojo (confirma el descarte del 23-sep). Viernes 25-sep: se evaluaron JEF, AIR, PRGS, FDS y MKC (descartados) y se re-confirmaron CCL, KMX y JBL; <strong style="color:var(--accent);">AYI pasa el checklist → Trade #12</strong> (monto a confirmar por Alejandro). Corrección de dato: el reporte real de FDX es el 28-oct, no el 17-sep (dato erróneo de una sesión anterior).</div>
       </div>
     </div>
   </div>
